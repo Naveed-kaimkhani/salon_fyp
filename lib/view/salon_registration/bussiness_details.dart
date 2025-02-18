@@ -22,15 +22,14 @@ class BussinessDetails extends StatefulWidget {
 class _BussinessDetailsState extends State<BussinessDetails> {
   late TextEditingController businessAdressController,
       operatingHoursController,
-      emailController,
-      passwordController,
+
       confirmPasswordController;
 
   final FirebaseAuthRepository authService = FirebaseAuthRepository();
  final StaffServicesRepository _staffServices =
       Get.find<StaffServicesRepository>();
   var isCreatingUser = false.obs;
-  Salon salon = Get.arguments;
+  // Salon salon = Get.arguments;
 
 
   Uint8List? businessLicenseImage;
@@ -41,8 +40,6 @@ class _BussinessDetailsState extends State<BussinessDetails> {
     super.initState();
     businessAdressController = TextEditingController();
     operatingHoursController = TextEditingController();
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
   }
 
@@ -50,8 +47,6 @@ class _BussinessDetailsState extends State<BussinessDetails> {
   void dispose() {
     businessAdressController.dispose();
     operatingHoursController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
     confirmPasswordController.dispose();
     super.dispose();
   }
@@ -72,7 +67,7 @@ class _BussinessDetailsState extends State<BussinessDetails> {
 void _login() async{
   
       isCreatingUser = true.obs;
-   authService.login(emailController.text, passwordController.text, context)
+   authService.signUpUser('nav@gmail.com',  '111111', context)
         .then((User? user) async {
       if (user != null) {
 try {
@@ -90,12 +85,24 @@ try {
           documentType: 'id_card',
         );
       await authService.createSalonProfile(
+        // salon: Salon(
+        //   // uid: salon.uid,
+        //   businessName: salon.businessName,
+        //   ownerName: salon.ownerName,
+        //   phoneNumber: salon.phoneNumber,
+        //   email: salon.email,
+        //   businessAddress: businessAdressController.text,
+        //   operatingHours: operatingHoursController.text,
+        //   businessLicenseUrl: businessLicenseUrl, // Handle upload logic
+        //   idProofUrl: idCardUrl, // Handle upload logic
+        //   createdAt: DateTime.now(),
+        // ),
         salon: Salon(
-          uid: salon.uid,
-          businessName: salon.businessName,
-          ownerName: salon.ownerName,
-          phoneNumber: salon.phoneNumber,
-          email: salon.email,
+          // uid: salon.uid,
+          businessName: "salon.businessName",
+          ownerName: "salon.ownerName",
+          phoneNumber: "salon.phoneNumber",
+          email: "salon.email",
           businessAddress: businessAdressController.text,
           operatingHours: operatingHoursController.text,
           businessLicenseUrl: businessLicenseUrl, // Handle upload logic

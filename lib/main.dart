@@ -124,15 +124,15 @@ class SalonWithAdmin extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: RouteName.splashScreen,
+      // initialRoute: RouteName.splashScreen,
       getPages: AppRoutes.getAppRoutes(),
       locale: locale,
       translations: AppTranslations(),
-      home: SalonRegistrationScreen(),
+      home: BussinessDetails(),
     );
     // return MaterialApp(
     //   debugShowCheckedModeBanner: false,
-    //   home:BussinessDetails(),
+    //   home:SalonRegistrationScreen(),
     // );
   }
 }

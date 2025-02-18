@@ -79,11 +79,10 @@ class _SalonRegistrationScreenState extends State<SalonRegistrationScreen> {
     }
 
     // Show loading state
-    setState(() {
-      isCreatingUser = true.obs;
-    });
+    // setState(() {
+    //   isCreatingUser = true.obs;
+    // });
 
-    try {
       Salon salon = Salon(
         phoneNumber: phoneController.text.trim(),
         businessName: businessNameController.text.trim(),
@@ -95,14 +94,15 @@ class _SalonRegistrationScreenState extends State<SalonRegistrationScreen> {
 
       // Navigate to home screen after successful creation
       Get.toNamed(RouteName.bussinessDetails, arguments: salon);
-    } catch (error) {
-      Get.snackbar('error'.tr, 'failed_to_sign_up'.tr + error.toString());
-    } finally {
-      // Hide loading state
-      setState(() {
-        isCreatingUser = false.obs;
-      });
-    }
+    // try {
+    // } catch (error) {
+    //   Get.snackbar('error'.tr, 'failed_to_sign_up'.tr + error.toString());
+    // } finally {
+    //   // Hide loading state
+    //   setState(() {
+    //     isCreatingUser = false.obs;
+    //   });
+    // }
   }
 
   @override
@@ -125,7 +125,7 @@ class _SalonRegistrationScreenState extends State<SalonRegistrationScreen> {
               ),
               const Gap(50),
               LabelText(
-                text: "finish_signing_up".tr,
+                text: "Finish Signing Up".tr,
                 textColor: AppColors.purple,
                 fontSize: AppFontSize.xlarge,
                 weight: FontWeight.w600,
