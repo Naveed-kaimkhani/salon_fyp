@@ -14,6 +14,7 @@ import 'package:hair_salon/repository/index.dart';
 import 'package:hair_salon/repository/manage_staff_api/manage_staff_repo_impl%20.dart';
 import 'package:hair_salon/routes/app_routes.dart';
 import 'package:hair_salon/view/salon_registration/bussiness_details.dart';
+import 'package:hair_salon/view/salon_registration/pending_approval_screen.dart';
 import 'package:hair_salon/view/salon_registration/salon_registration_screen.dart';
 import 'package:hair_salon/view/salon_registration/salon_verification.dart';
 import 'package:hair_salon/view/view.dart';
@@ -128,7 +129,7 @@ class SalonWithAdmin extends StatelessWidget {
       getPages: AppRoutes.getAppRoutes(),
       locale: locale,
       translations: AppTranslations(),
-      home: BussinessDetails(),
+      home: PendingApprovalScreen(),
     );
     // return MaterialApp(
     //   debugShowCheckedModeBanner: false,
