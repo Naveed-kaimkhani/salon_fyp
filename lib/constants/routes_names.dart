@@ -21,7 +21,7 @@ class RouteName {
 //Admin Routs
   static const String adminLoginScreen = "/adminLoginScreen";
   static const String adminSplashScreen = '/adminSplashScreen';
-
+  static const String pendingApprovalScreen = '/pendingApprovalScreen';
   static const String servicesScreen = "/servicesScreen";
   static const String manageStaffScreen = "/manageStaffScreen";
   static const String workHoursScreen = "/workHoursScreen";
