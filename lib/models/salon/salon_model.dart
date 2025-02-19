@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class Salon {
   final String? uid;
@@ -13,10 +13,13 @@ class Salon {
   final String? password;
   final String? confirmPassword;
   final DateTime? createdAt ;
+  //add field for isApproved
+  final bool? isApproved;
   Salon({
      this.uid,
     required this.businessName,
     required this.ownerName,
+     this.isApproved=false,
     required this.phoneNumber,
     required this.email,
      this.businessAddress,
@@ -33,13 +36,14 @@ class Salon {
       uid: json['uid'],
       businessName: json['businessName'],
       ownerName: json['ownerName'],
+      isApproved: json['isApproved'],
       phoneNumber: json['phoneNumber'],
       email: json['email'],
       businessAddress: json['businessAddress'],
       operatingHours: json['operatingHours'],
       businessLicenseUrl: json['businessLicenseUrl'],
       idProofUrl: json['idProofUrl'],
-      createdAt: json['createdAt'],
+      // createdAt: json['createdAt'],
     );
   }
 
@@ -50,12 +54,12 @@ class Salon {
       'ownerName': ownerName,
       'phoneNumber': phoneNumber,
       'email': email,
-
+      'isApproved': isApproved,
       'businessAddress': businessAddress,
       'operatingHours': operatingHours,
       'businessLicenseUrl': businessLicenseUrl,
       'idProofUrl': idProofUrl,
-      'createdAt': createdAt,
+      // 'createdAt': createdAt,
     };
   }
 }

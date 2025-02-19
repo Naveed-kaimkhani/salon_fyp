@@ -1,5 +1,8 @@
+
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hair_salon/constants/constants.dart';
+import 'package:hair_salon/models/salon/salon_model.dart';
 
 class AccountVerificationScreen extends StatefulWidget {
   @override
@@ -10,29 +13,14 @@ class AccountVerificationScreen extends StatefulWidget {
 class _AccountVerificationScreenState extends State<AccountVerificationScreen> {
   int selectedIndex = 0;
 
-  final List<Map<String, String>> accounts = [
-    {
-      'salonName': 'Luxury Salon',
-      'idCard': 'View file',
-      'businessLicense': 'View file',
-      'status': 'Pending',
-      'submissionDate': '12/05/2024'
-    },
-    {
-      'salonName': 'Elite Spa',
-      'idCard': 'View file',
-      'businessLicense': 'View file',
-      'status': 'Approved',
-      'submissionDate': '10/11/2023'
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account Verification',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: Text(
+          'Account Verification',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: AppColors.purple,
         elevation: 5,
         shadowColor: Colors.black54,
@@ -81,118 +69,164 @@ class _AccountVerificationScreenState extends State<AccountVerificationScreen> {
                             fontWeight: FontWeight.bold,
                             color: AppColors.purple),
                       ),
-                      // ElevatedButton.icon(
-                      //   onPressed: () {},
-                      //   icon: Icon(Icons.download, color: Colors.white),
-                      //   label: Text('Export Report'),
-                      //   style: ElevatedButton.styleFrom(
-                      //     backgroundColor: AppColors.purple,
-                      //     shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(10)),
-                      //     padding: EdgeInsets.symmetric(
-                      //         horizontal: 16, vertical: 10),
-                      //   ),
-                      // ),
                     ],
                   ),
                   SizedBox(height: 20),
                   Expanded(
-                    child: AnimatedSwitcher(
-                      duration: Duration(milliseconds: 500),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return FadeTransition(opacity: animation, child: child);
-                      },
-                      child: DataTable(
-                        key: ValueKey<int>(selectedIndex),
-                        columnSpacing: 22,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 5,
-                              spreadRadius: 2,
-                            ),
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('salons')
+                          .where('isApproved', isEqualTo: selectedIndex == 1)
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                          return Center(child: Text('No records found'));
+                        }
+                        return DataTable(
+                          columnSpacing: 22,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5,
+                                  spreadRadius: 2),
+                            ],
+                          ),
+                          columns: [
+                            DataColumn(label: Text('Salon Name')),
+                            DataColumn(label: Text('Owner Name')),
+                            DataColumn(label: Text('Phone')),
+                            DataColumn(label: Text('ID Card')),
+                            DataColumn(label: Text('Business License')),
+                            DataColumn(label: Text('Status')),
+                            DataColumn(label: Text('Action')),
                           ],
-                        ),
-                        columns: [
-                          DataColumn(
-                              label: Text('Salon Name',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
-                          DataColumn(
-                              label: Text('ID Card',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
-                          DataColumn(
-                              label: Text('Business License',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
-                          DataColumn(
-                              label: Text('Status',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
-                          DataColumn(
-                              label: Text('Submission Date',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
-                          // DataColumn(
-                          //     label: Text('Action',
-                          //         style:
-                          //             TextStyle(fontWeight: FontWeight.bold))),
-                        ],
-                        rows: accounts
-                            .where((account) => selectedIndex == 0
-                                ? account['status'] == 'Pending'
-                                : account['status'] == 'Approved')
-                            .map(
-                              (account) => DataRow(cells: [
-                                DataCell(Text(account['salonName']!)),
-                                DataCell(Text(account['idCard']!,
+                          rows: snapshot.data!.docs.map((doc) {
+                            Salon salon = Salon.fromJson(
+                                doc.data() as Map<String, dynamic>);
+                            return DataRow(cells: [
+                              DataCell(Text(salon.businessName ?? "")),
+                              DataCell(Text(salon.ownerName ?? "")),
+                              DataCell(Text(salon.phoneNumber ?? "")),
+                              DataCell(
+                                TextButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        content: Image.network(
+                                          salon.idProofUrl!,
+                                          loadingBuilder: (context, child,
+                                              loadingProgress) {
+                                            if (loadingProgress == null)
+                                              return child;
+                                            return Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          },
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Text(error.toString());
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    'View file',
                                     style: TextStyle(
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.w500))),
-                                DataCell(Text(account['businessLicense']!,
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.w500))),
-                                DataCell(
-                                  AnimatedContainer(
-                                    duration: Duration(milliseconds: 300),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 4),
-                                    decoration: BoxDecoration(
-                                      color: account['status'] == 'Pending'
-                                          ? Colors.orange
-                                          : Colors.green,
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Text(
-                                      account['status']!,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                                DataCell(Text(account['submissionDate']!)),
-                                // DataCell(ElevatedButton(
-                                //   onPressed: () {},
-                                //   child: Text('Send Message'),
-                                //   style: ElevatedButton.styleFrom(
-                                //     backgroundColor: Colors.blue,
-                                //     shape: RoundedRectangleBorder(
-                                //         borderRadius: BorderRadius.circular(8)),
-                                //     padding: EdgeInsets.symmetric(
-                                //         horizontal: 12, vertical: 8),
-                                //   ),
-                                // )),
-                              ]),
-                            )
-                            .toList(),
-                      ),
+                              ),
+                              DataCell(
+                                TextButton(
+                                  onPressed: () {
+                                    print(salon.idProofUrl);
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        content: Image.network(
+                                          salon.idProofUrl!,
+                                          loadingBuilder: (context, child,
+                                              loadingProgress) {
+                                            if (loadingProgress == null)
+                                              return child;
+                                            return Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          },
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Text('Failed to load image');
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    'View file',
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              DataCell(
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: salon.isApproved!
+                                        ? Colors.green
+                                        : Colors.orange,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Text(
+                                    salon.isApproved! ? 'Approved' : 'Pending',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                              DataCell(salon.isApproved!
+                                  ? SizedBox()
+                                  : ElevatedButton(
+                                      onPressed: () {
+                                        FirebaseFirestore.instance
+                                            .collection('salons')
+                                            .doc(salon.uid)
+                                            .update({'isApproved': true});
+                                      },
+                                      child: Text('Approve',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.blue,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 8),
+                                      ),
+                                    )),
+                            ]);
+                          }).toList(),
+                        );
+                      },
                     ),
                   ),
                 ],

@@ -19,6 +19,7 @@ import 'package:hair_salon/view/salon_registration/salon_registration_screen.dar
 import 'package:hair_salon/view/salon_registration/salon_verification.dart';
 import 'package:hair_salon/view/view.dart';
 import 'package:hair_salon/view_model/controller/edit_staff_controller.dart';
+import 'package:hair_salon/view_model/controller/salon_controller.dart';
 import 'package:hair_salon/view_model/index.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -43,6 +44,7 @@ void main() async {
   Get.put(TreatmentCardController());
   Get.put(StaffController(staffServices: Get.find<StaffServicesRepository>()));
 
+
   Get.put(
       EditStaffController(staffServices: Get.find<StaffServicesRepository>()));
   Get.put(
@@ -51,7 +53,7 @@ void main() async {
   Get.put(BlockedDatesProvider(
       blockedDatesRepository: Get.find<BlockedDatesRepository>()));
   Get.put(RecurringAppointmentController());
-
+// Get.put(SalonProvider());
   await initializeNotifications();
 
   NotificationService notificationService = NotificationService();
@@ -129,7 +131,7 @@ class SalonWithAdmin extends StatelessWidget {
       getPages: AppRoutes.getAppRoutes(),
       locale: locale,
       translations: AppTranslations(),
-      home: PendingApprovalScreen(),
+      home: AccountVerificationScreen(),
     );
     // return MaterialApp(
     //   debugShowCheckedModeBanner: false,

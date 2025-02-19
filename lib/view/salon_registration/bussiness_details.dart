@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -10,7 +9,6 @@ import 'package:hair_salon/components/components.dart';
 import 'package:hair_salon/constants/constants.dart';
 import 'package:hair_salon/models/salon/salon_model.dart';
 import 'package:hair_salon/repository/auth_api/firebase_auth_repository.dart';
-import 'package:hair_salon/utils/utills.dart';
 
 class BussinessDetails extends StatefulWidget {
   const BussinessDetails({super.key});
@@ -21,9 +19,7 @@ class BussinessDetails extends StatefulWidget {
 
 class _BussinessDetailsState extends State<BussinessDetails> {
   late TextEditingController businessAdressController,
-      operatingHoursController,
-
-      confirmPasswordController;
+      operatingHoursController;
 
   final FirebaseAuthRepository authService = FirebaseAuthRepository();
  final StaffServicesRepository _staffServices =
@@ -40,14 +36,12 @@ class _BussinessDetailsState extends State<BussinessDetails> {
     super.initState();
     businessAdressController = TextEditingController();
     operatingHoursController = TextEditingController();
-    confirmPasswordController = TextEditingController();
   }
 
   @override
   void dispose() {
     businessAdressController.dispose();
     operatingHoursController.dispose();
-    confirmPasswordController.dispose();
     super.dispose();
   }
 
