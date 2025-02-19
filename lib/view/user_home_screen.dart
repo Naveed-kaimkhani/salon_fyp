@@ -19,7 +19,15 @@ class UserHomeScreen extends StatelessWidget {
   final FirebaseAuthRepository authService = FirebaseAuthRepository();
   final RxString userInitials = "U".obs;
   final RxString? coverImageUrl = ''.obs;
-  final RxList<String> galleryImages = <String>[].obs;
+  // final RxList<String> galleryImages = <String>[].obs;
+  final List<String> galleryImages = [
+    AppImages.galleryIamge_1,
+    AppImages.galleryIamge_2,
+    AppImages.galleryIamge_1,
+    AppImages.galleryIamge_1,
+    AppImages.galleryIamge_2,
+    AppImages.galleryIamge_1,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +58,8 @@ class UserHomeScreen extends StatelessWidget {
     );
   }
 
-  Obx _galleryImagesWidget() {
-    return Obx(() => SizedBox(
+  Widget _galleryImagesWidget() {
+    return SizedBox(
           height: 130,
           width: double.infinity,
           child: galleryImages.isEmpty
@@ -86,7 +94,7 @@ class UserHomeScreen extends StatelessWidget {
                     );
                   },
                 ),
-        ));
+        );
   }
 
   // Fetch and update user initials
@@ -150,137 +158,64 @@ class UserHomeScreen extends StatelessWidget {
       return nameParts[0][0].toUpperCase();
     }
   }
+  
+Widget _buildShopGalleryImage(String image) {
+  return Container(
+    width: 130,
+    height: 130,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(
+        color: AppColors.lightGrey,
+      ),
+    ),
+    clipBehavior: Clip.hardEdge,
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: DecoratedImage(
+          height: 110,
+          width: 110,
+          image: image,
+        ),
+      ),
+    ),
+  );
+}
 
-  Widget _buildShopDecorationImageSection() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: AppColors.lightGrey,
-        ),
+Widget _buildShopDecorationImageSection() {
+  return Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(
+        color: AppColors.lightGrey,
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Obx(() => coverImageUrl != null && coverImageUrl!.value.isNotEmpty
-                ? GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        Get.context!,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              FullScreenImage(imagePath: coverImageUrl!.value),
-                        ),
-                      );
-                    },
-                    child: CachedNetworkImage(
-                      imageUrl: coverImageUrl!.value,
-                      width: double.infinity,
-                      height: 200,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: Container(
-                          width: double.infinity,
-                          height: 200,
-                          color: Colors.grey[300],
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => const Icon(
-                        Icons.error,
-                        size: 50,
-                        color: Colors.red,
-                      ),
-                    ),
-                  )
-                : Shimmer.fromColors(
-                    baseColor: Colors.grey[300]!,
-                    highlightColor: Colors.grey[100]!,
-                    child: Container(
-                      width: double.infinity,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  )),
-            const Gap(10),
-            CustomGradientButton(
-              height: 40,
-              text: "book_now".tr,
-              onTap: () {
-                Get.to(() => AllStaffScreen());
-              },
-              isLoading: false.obs,
-            ),
-          ],
-        ),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          DecoratedImage(
+            width: double.infinity,
+            height: 200,
+            image: AppImages.salonCoverImage,
+          ),
+          const Gap(10),
+          CustomGradientButton(
+            height: 40,
+            text: "Book Now",
+            onTap: () {
+              // log("on tap");
+              Get.toNamed(RouteName.bookAppointmentScreen);
+            }, isLoading: false.obs,
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Widget _buildShopGalleryImage(String image) {
-    return GestureDetector(
-      onTap: () {
-        Get.to(() => FullScreenImage(imagePath: image));
-      },
-      child: Container(
-        width: 130,
-        height: 130,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: AppColors.lightGrey,
-          ),
-        ),
-        clipBehavior: Clip.hardEdge,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: CachedNetworkImage(
-              imageUrl: image,
-              height: 110,
-              width: 110,
-              fit: BoxFit.cover,
-              placeholder: (context, url) {
-                return Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
-                  child: Container(
-                    height: 110,
-                    width: 110,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                );
-              },
-              errorWidget: (context, url, error) {
-                return Container(
-                  height: 110,
-                  width: 110,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey[200],
-                  ),
-                  child: const Icon(
-                    Icons.error,
-                    color: Colors.red,
-                    size: 30,
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+
 
   Widget _buildSpecialistSection(BuildContext context) {
     final StaffController staffProvider = Get.find<StaffController>();

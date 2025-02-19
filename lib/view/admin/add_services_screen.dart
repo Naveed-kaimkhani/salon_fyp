@@ -53,6 +53,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
   }
 
   _submitForm() async {
+    print("flsdfjkslddddddddddddd");
     if (nameController.text.isEmpty) {
       Get.snackbar("error".tr, "please_add_service_name".tr);
       return;
@@ -73,10 +74,10 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
       return;
     }
 
-    if (_serviceImage == null) {
-      Get.snackbar("error".tr, "please_upload_service_image".tr);
-      return;
-    }
+    // if (_serviceImage == null) {
+    //   Get.snackbar("error".tr, "please_upload_service_image".tr);
+    //   return;
+    // }
 
     try {
       servicesController.isLoading.value = true;
@@ -88,10 +89,11 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
       final servicePrice = double.tryParse(priceController.text) ?? 0.0;
 
       // Upload service image
-      final imageUrl = await _manageServiceRepo.uploadServiceImage(
-        imageFile: _serviceImage!,
-        uid: uid,
-      );
+      // final imageUrl = await _manageServiceRepo.uploadServiceImage(
+      //   imageFile: _serviceImage!,
+      //   uid: uid,
+      // );
+      final imageUrl = "https://via.placeholder.com/150";
 
       // Create a new ServicesModel
       ServicesModel serviceModel = ServicesModel(

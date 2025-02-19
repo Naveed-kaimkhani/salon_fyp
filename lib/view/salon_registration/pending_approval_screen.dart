@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hair_salon/constants/app_colors.dart';
+import 'package:hair_salon/constants/routes_names.dart';
+
 class PendingApprovalScreen extends StatefulWidget {
   const PendingApprovalScreen({Key? key}) : super(key: key);
 
@@ -35,15 +39,31 @@ class _PendingApprovalScreenState extends State<PendingApprovalScreen>
 
   Future<void> _refreshStatus() async {
     setState(() => _isRefreshing = true);
-    // Simulate API call
-    await Future.delayed(const Duration(seconds: 2));
+
+    User user = FirebaseAuth.instance.currentUser!;
+
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection('salons')
+        .doc(user.uid)
+        .get();
+
+    bool isApproved =
+        snapshot.exists ? (snapshot['isApproved'] ?? false) : false;
+
     setState(() => _isRefreshing = false);
+
+    if (isApproved) {
+      Get.offAllNamed(RouteName
+          .adminBottomNavBar); // Navigate to Home Screen (replace with your route)
+    } else {
+      Get.snackbar('Status', 'Your account is still under review.');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -139,7 +159,8 @@ class _PendingApprovalScreenState extends State<PendingApprovalScreen>
                     onPressed: _isRefreshing ? null : _refreshStatus,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.purple,
-                      padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
+                      padding:
+                          EdgeInsets.symmetric(vertical: size.height * 0.02),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -167,21 +188,21 @@ class _PendingApprovalScreenState extends State<PendingApprovalScreen>
                 SizedBox(height: size.height * 0.02),
 
                 // Contact Support Button
-                TextButton.icon(
-                  onPressed: () {
-                    // Add contact support functionality
-                    Get.snackbar(
-                      'Contact Support',
-                      'Our support team will assist you shortly',
-                      snackPosition: SnackPosition.BOTTOM,
-                    );
-                  },
-                  icon: const Icon(Icons.headset_mic_outlined),
-                  label: const Text('Contact Support'),
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.grey[700],
-                  ),
-                ),
+                // TextButton.icon(
+                //   onPressed: () {
+                //     // Add contact support functionality
+                //     Get.snackbar(
+                //       'Contact Support',
+                //       'Our support team will assist you shortly',
+                //       snackPosition: SnackPosition.BOTTOM,
+                //     );
+                //   },
+                //   icon: const Icon(Icons.headset_mic_outlined),
+                //   label: const Text('Contact Support'),
+                //   style: TextButton.styleFrom(
+                //     foregroundColor: Colors.grey[700],
+                //   ),
+                // ),
               ],
             ),
           ),

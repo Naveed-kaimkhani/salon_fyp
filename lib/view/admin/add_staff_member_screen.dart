@@ -33,10 +33,10 @@ class _AddStaffMemberScreenState extends State<AddStaffMemberScreen> {
       Get.snackbar("error".tr, "please_assign_service".tr);
       return;
     }
-    if (_profileImage == null) {
-      Get.snackbar("error".tr, "please_upload_profile_picture".tr);
-      return;
-    }
+    // if (_profileImage == null) {
+    //   Get.snackbar("error".tr, "please_upload_profile_picture".tr);
+    //   return;
+    // }
 
     if (_formKey.currentState!.validate()) {
       if (controller.selectedDays.isEmpty) {
@@ -59,10 +59,11 @@ class _AddStaffMemberScreenState extends State<AddStaffMemberScreen> {
         loadingController.isLoading.value = true; // Start loading
 
         // Upload profile image
-        controller.photo.value = await _staffServices.uploadProfileImage(
-          imageFile: _profileImage!,
-          uid: uid,
-        );
+        // controller.photo.value = await _staffServices.uploadProfileImage(
+        //   imageFile: _profileImage!,
+        //   uid: uid,
+        // );
+        controller.photo.value = "https://via.placeholder.com/150";
 
         // Add staff member
         await controller.addStaffMember();
