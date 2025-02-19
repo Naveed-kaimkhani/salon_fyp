@@ -17,7 +17,7 @@ class RouteName {
   static const String manageServicesScreen = "/manageServicesScreen";
   static const String userNavBar = "/userNavBar";
   static const String adminBottomNavBar = "/adminBottomNavBar";
-
+  static const String pendingApprovalScreen = '/pendingApprovalScreen';
 //Admin Routs
   static const String adminLoginScreen = "/adminLoginScreen";
   static const String adminSplashScreen = '/adminSplashScreen';

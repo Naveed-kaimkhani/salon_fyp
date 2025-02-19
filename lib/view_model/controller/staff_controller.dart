@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hair_salon/models/staff/staff_model.dart';
@@ -107,6 +108,7 @@ class StaffController extends GetxController {
       endTime: endTimeValue,
       photoURL: photo.value,
       listOfServices: assignedServices,
+      salonId: FirebaseAuth.instance.currentUser!.uid,
     );
 
     try {

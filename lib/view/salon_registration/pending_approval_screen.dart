@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hair_salon/constants/app_colors.dart';
 import 'package:hair_salon/constants/routes_names.dart';
+import 'package:hair_salon/repository/auth_api/firebase_auth_repository.dart';
 
 class PendingApprovalScreen extends StatefulWidget {
   const PendingApprovalScreen({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _PendingApprovalScreenState extends State<PendingApprovalScreen>
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   bool _isRefreshing = false;
+  final FirebaseAuthRepository _authService = FirebaseAuthRepository();
 
   @override
   void initState() {
@@ -47,12 +49,13 @@ class _PendingApprovalScreenState extends State<PendingApprovalScreen>
         .doc(user.uid)
         .get();
 
-    bool isApproved =
+    bool isApproved = 
         snapshot.exists ? (snapshot['isApproved'] ?? false) : false;
-
     setState(() => _isRefreshing = false);
 
     if (isApproved) {
+      
+    await _authService.saveApprovalSession(user.uid);
       Get.offAllNamed(RouteName
           .adminBottomNavBar); // Navigate to Home Screen (replace with your route)
     } else {

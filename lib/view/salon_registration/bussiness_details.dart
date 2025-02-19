@@ -25,7 +25,7 @@ class _BussinessDetailsState extends State<BussinessDetails> {
  final StaffServicesRepository _staffServices =
       Get.find<StaffServicesRepository>();
   var isCreatingUser = false.obs;
-  // Salon salon = Get.arguments;
+  Salon salon = Get.arguments;
 
 
   Uint8List? businessLicenseImage;
@@ -59,10 +59,14 @@ class _BussinessDetailsState extends State<BussinessDetails> {
     }
   }
 void _login() async{
+  if (salon.email == null || salon.password == null) {
+    Get.snackbar('Error', 'Email and password are required');
+    return;
+  }
   
-      isCreatingUser = true.obs;
-   authService.signUpUser('nav@gmail.com',  '111111', context)
-        .then((User? user) async {
+  isCreatingUser = true.obs;
+  authService.signUpUser(salon.email!, salon.password!, context)
+    .then((User? user) async {
       if (user != null) {
 try {
 
@@ -93,10 +97,10 @@ try {
         // ),
         salon: Salon(
           // uid: salon.uid,
-          businessName: "salon.businessName",
-          ownerName: "salon.ownerName",
-          phoneNumber: "salon.phoneNumber",
-          email: "salon.email",
+          businessName: salon.businessName,
+          ownerName:salon.ownerName,
+          phoneNumber:salon.phoneNumber,
+          email: salon.email,
           businessAddress: businessAdressController.text,
           operatingHours: operatingHoursController.text,
           businessLicenseUrl: businessLicenseUrl, // Handle upload logic
@@ -105,47 +109,47 @@ try {
         ),
       );
       
-        isCreatingUser = false.obs;
-      Get.offAllNamed(RouteName.userHomeScreen);
+        isCreatingUser.value = false;
+      Get.offAllNamed(RouteName.pendingApprovalScreen);
     } catch (error) {
       
-      isCreatingUser = false.obs;
+      isCreatingUser.value = false;
       Get.snackbar('Error', 'Failed to sign up: ${error.toString()}');
     } finally {
       
-        isCreatingUser = false.obs;
+        isCreatingUser.value = false;
     }
       } else {
    
-      isCreatingUser = false.obs;
+      isCreatingUser.value = false;
       }
     });
   }
   void validateAndSignUp() async {
     if (businessAdressController.text.isEmpty) {
       
-      isCreatingUser = false.obs;
+      isCreatingUser.value = false;
       Get.snackbar('Error', 'Business Address cannot be empty');
       
       return;
     }
     if (operatingHoursController.text.isEmpty) {
       
-      isCreatingUser = false.obs;
+      isCreatingUser.value = false;
       Get.snackbar('Error', 'Operating Hours cannot be empty');
     
       return;
     }
     if (businessLicenseImage == null) {
       
-      isCreatingUser = false.obs;
+      isCreatingUser.value = false;
       Get.snackbar('Error', 'Please upload Business License');
     
       return;
     }
     if (idProofImage == null) {
     
-      isCreatingUser = false.obs;
+      isCreatingUser.value = false;
       Get.snackbar('Error', 'Please upload ID Proof');
     
       return;

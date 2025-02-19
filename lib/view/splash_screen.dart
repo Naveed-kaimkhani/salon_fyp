@@ -15,12 +15,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   late Future<bool> isAdminAuthenticated;
   late Future<bool> isUserAuthenticated;
-
+  late Future<bool> isApproved;
   @override
   void initState() {
     super.initState();
     isAdminAuthenticated = _isAdminAuthenticated();
     isUserAuthenticated = _isUserAuthenticated();
+    isApproved = _isApproved();
 
     Future.delayed(const Duration(seconds: 3), () async {
       bool adminAuth = await isAdminAuthenticated;
@@ -30,9 +31,19 @@ class _SplashScreenState extends State<SplashScreen> {
       log("User Authenticated: $userAuth");
 
       if (adminAuth) {
-        Get.offAndToNamed(RouteName.adminBottomNavBar);
+          bool approved = await isApproved;
+       
+     if (approved) {
+           Get.offAndToNamed(RouteName.adminBottomNavBar);
+        
+        }else{
+            Get.offAndToNamed(RouteName.pendingApprovalScreen);
+         
+        }
       } else if (userAuth) {
+      
         Get.offAndToNamed(RouteName.userHomeScreen);
+        
       } else {
         Get.offAllNamed(RouteName.userLoginScreen);
       }
@@ -47,6 +58,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<bool> _isUserAuthenticated() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool('isAuthenticated') ?? false;
+  }
+
+  Future<bool> _isApproved() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('isApproved') ?? false;
   }
 
   @override

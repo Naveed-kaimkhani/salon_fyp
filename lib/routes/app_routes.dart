@@ -5,6 +5,7 @@ import 'package:hair_salon/view/admin/admin.dart';
 import 'package:hair_salon/view/admin/admin_splash_screen.dart';
 import 'package:hair_salon/view/admin/image_management_screen.dart';
 import 'package:hair_salon/view/edit_appointment_screen.dart';
+import 'package:hair_salon/view/salon_registration/pending_approval_screen.dart';
 import 'package:hair_salon/view/salon_registration/salon_registration_screen.dart';
 import 'package:hair_salon/view/view.dart';
 
@@ -15,6 +16,10 @@ class AppRoutes {
         GetPage(
             name: RouteName.splashScreen,
             page: () => const SplashScreen(),
+            transition: Transition.cupertino),
+   GetPage(
+            name: RouteName.pendingApprovalScreen,
+            page: () => const PendingApprovalScreen(),
             transition: Transition.cupertino),
 
         GetPage(

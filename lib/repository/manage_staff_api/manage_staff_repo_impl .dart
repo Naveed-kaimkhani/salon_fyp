@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:hair_salon/models/staff/staff_model.dart';
@@ -13,7 +14,10 @@ class StaffServicesRepositoryImpl extends StaffServicesRepository {
   @override
   Future<List<StaffModel>> fetchStaffList() async {
     try {
-      final QuerySnapshot snapshot = await _firestore.collection('staff').get();
+      final QuerySnapshot snapshot = await _firestore
+          .collection('staff')
+          .where('salonId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .get();
       return snapshot.docs.map((doc) {
         return StaffModel.fromJson(doc.data() as Map<String, dynamic>)
             .copyWith(uid: doc.id);

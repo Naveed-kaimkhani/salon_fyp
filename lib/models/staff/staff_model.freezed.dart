@@ -22,9 +22,9 @@ StaffModel _$StaffModelFromJson(Map<String, dynamic> json) {
 mixin _$StaffModel {
   String get uid =>
       throw _privateConstructorUsedError; // Unique ID for each user
-  String get role => throw _privateConstructorUsedError; // User's email address
   String get displayName =>
       throw _privateConstructorUsedError; // User's display name
+  String get role => throw _privateConstructorUsedError; // User's email address
   String get startTime =>
       throw _privateConstructorUsedError; // User's phone number
   String get endTime =>
@@ -32,7 +32,9 @@ mixin _$StaffModel {
   String get photoURL =>
       throw _privateConstructorUsedError; // URL to the user's profile picture
   List<String> get days => throw _privateConstructorUsedError;
-  List<String> get listOfServices => throw _privateConstructorUsedError;
+  List<String> get listOfServices =>
+      throw _privateConstructorUsedError; // Authentication token if needed
+  String get salonId => throw _privateConstructorUsedError;
 
   /// Serializes this StaffModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,13 +54,14 @@ abstract class $StaffModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String uid,
-      String role,
       String displayName,
+      String role,
       String startTime,
       String endTime,
       String photoURL,
       List<String> days,
-      List<String> listOfServices});
+      List<String> listOfServices,
+      String salonId});
 }
 
 /// @nodoc
@@ -77,26 +80,27 @@ class _$StaffModelCopyWithImpl<$Res, $Val extends StaffModel>
   @override
   $Res call({
     Object? uid = null,
-    Object? role = null,
     Object? displayName = null,
+    Object? role = null,
     Object? startTime = null,
     Object? endTime = null,
     Object? photoURL = null,
     Object? days = null,
     Object? listOfServices = null,
+    Object? salonId = null,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
-              as String,
       displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
               as String,
       startTime: null == startTime
           ? _value.startTime
@@ -118,6 +122,10 @@ class _$StaffModelCopyWithImpl<$Res, $Val extends StaffModel>
           ? _value.listOfServices
           : listOfServices // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      salonId: null == salonId
+          ? _value.salonId
+          : salonId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -132,13 +140,14 @@ abstract class _$$StaffModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String uid,
-      String role,
       String displayName,
+      String role,
       String startTime,
       String endTime,
       String photoURL,
       List<String> days,
-      List<String> listOfServices});
+      List<String> listOfServices,
+      String salonId});
 }
 
 /// @nodoc
@@ -155,26 +164,27 @@ class __$$StaffModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? uid = null,
-    Object? role = null,
     Object? displayName = null,
+    Object? role = null,
     Object? startTime = null,
     Object? endTime = null,
     Object? photoURL = null,
     Object? days = null,
     Object? listOfServices = null,
+    Object? salonId = null,
   }) {
     return _then(_$StaffModelImpl(
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
-              as String,
       displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
               as String,
       startTime: null == startTime
           ? _value.startTime
@@ -196,6 +206,10 @@ class __$$StaffModelImplCopyWithImpl<$Res>
           ? _value._listOfServices
           : listOfServices // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      salonId: null == salonId
+          ? _value.salonId
+          : salonId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -205,13 +219,14 @@ class __$$StaffModelImplCopyWithImpl<$Res>
 class _$StaffModelImpl implements _StaffModel {
   _$StaffModelImpl(
       {this.uid = '',
-      this.role = '',
       this.displayName = '',
+      this.role = '',
       this.startTime = '',
       this.endTime = '',
       this.photoURL = '',
       final List<String> days = const [],
-      final List<String> listOfServices = const []})
+      final List<String> listOfServices = const [],
+      this.salonId = ''})
       : _days = days,
         _listOfServices = listOfServices;
 
@@ -224,12 +239,12 @@ class _$StaffModelImpl implements _StaffModel {
 // Unique ID for each user
   @override
   @JsonKey()
-  final String role;
-// User's email address
-  @override
-  @JsonKey()
   final String displayName;
 // User's display name
+  @override
+  @JsonKey()
+  final String role;
+// User's email address
   @override
   @JsonKey()
   final String startTime;
@@ -261,9 +276,14 @@ class _$StaffModelImpl implements _StaffModel {
     return EqualUnmodifiableListView(_listOfServices);
   }
 
+// Authentication token if needed
+  @override
+  @JsonKey()
+  final String salonId;
+
   @override
   String toString() {
-    return 'StaffModel(uid: $uid, role: $role, displayName: $displayName, startTime: $startTime, endTime: $endTime, photoURL: $photoURL, days: $days, listOfServices: $listOfServices)';
+    return 'StaffModel(uid: $uid, displayName: $displayName, role: $role, startTime: $startTime, endTime: $endTime, photoURL: $photoURL, days: $days, listOfServices: $listOfServices, salonId: $salonId)';
   }
 
   @override
@@ -272,9 +292,9 @@ class _$StaffModelImpl implements _StaffModel {
         (other.runtimeType == runtimeType &&
             other is _$StaffModelImpl &&
             (identical(other.uid, uid) || other.uid == uid) &&
-            (identical(other.role, role) || other.role == role) &&
             (identical(other.displayName, displayName) ||
                 other.displayName == displayName) &&
+            (identical(other.role, role) || other.role == role) &&
             (identical(other.startTime, startTime) ||
                 other.startTime == startTime) &&
             (identical(other.endTime, endTime) || other.endTime == endTime) &&
@@ -282,7 +302,8 @@ class _$StaffModelImpl implements _StaffModel {
                 other.photoURL == photoURL) &&
             const DeepCollectionEquality().equals(other._days, _days) &&
             const DeepCollectionEquality()
-                .equals(other._listOfServices, _listOfServices));
+                .equals(other._listOfServices, _listOfServices) &&
+            (identical(other.salonId, salonId) || other.salonId == salonId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -290,13 +311,14 @@ class _$StaffModelImpl implements _StaffModel {
   int get hashCode => Object.hash(
       runtimeType,
       uid,
-      role,
       displayName,
+      role,
       startTime,
       endTime,
       photoURL,
       const DeepCollectionEquality().hash(_days),
-      const DeepCollectionEquality().hash(_listOfServices));
+      const DeepCollectionEquality().hash(_listOfServices),
+      salonId);
 
   /// Create a copy of StaffModel
   /// with the given fields replaced by the non-null parameter values.
@@ -317,13 +339,14 @@ class _$StaffModelImpl implements _StaffModel {
 abstract class _StaffModel implements StaffModel {
   factory _StaffModel(
       {final String uid,
-      final String role,
       final String displayName,
+      final String role,
       final String startTime,
       final String endTime,
       final String photoURL,
       final List<String> days,
-      final List<String> listOfServices}) = _$StaffModelImpl;
+      final List<String> listOfServices,
+      final String salonId}) = _$StaffModelImpl;
 
   factory _StaffModel.fromJson(Map<String, dynamic> json) =
       _$StaffModelImpl.fromJson;
@@ -331,9 +354,9 @@ abstract class _StaffModel implements StaffModel {
   @override
   String get uid; // Unique ID for each user
   @override
-  String get role; // User's email address
-  @override
   String get displayName; // User's display name
+  @override
+  String get role; // User's email address
   @override
   String get startTime; // User's phone number
   @override
@@ -343,7 +366,9 @@ abstract class _StaffModel implements StaffModel {
   @override
   List<String> get days;
   @override
-  List<String> get listOfServices;
+  List<String> get listOfServices; // Authentication token if needed
+  @override
+  String get salonId;
 
   /// Create a copy of StaffModel
   /// with the given fields replaced by the non-null parameter values.

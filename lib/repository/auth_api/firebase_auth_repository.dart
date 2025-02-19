@@ -266,6 +266,11 @@ class FirebaseAuthRepository implements AuthRepository {
     await prefs.setString('uid', uid);
     await prefs.setString('phoneNumber', phoneNumber);
   }
+  @override
+  Future<void> saveApprovalSession(String uid) async {  
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isApproved', true);
+  }
 
   /// Check if the user is authenticated
   @override
