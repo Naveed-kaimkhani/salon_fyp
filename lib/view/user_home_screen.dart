@@ -150,77 +150,37 @@ class UserHomeScreen extends StatelessWidget {
       return nameParts[0][0].toUpperCase();
     }
   }
-
-  Widget _buildShopDecorationImageSection() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: AppColors.lightGrey,
-        ),
+Widget _buildShopDecorationImageSection() {
+  return Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(
+        color: AppColors.lightGrey,
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Obx(() => coverImageUrl != null && coverImageUrl!.value.isNotEmpty
-                ? GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        Get.context!,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              FullScreenImage(imagePath: coverImageUrl!.value),
-                        ),
-                      );
-                    },
-                    child: CachedNetworkImage(
-                      imageUrl: coverImageUrl!.value,
-                      width: double.infinity,
-                      height: 200,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: Container(
-                          width: double.infinity,
-                          height: 200,
-                          color: Colors.grey[300],
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => const Icon(
-                        Icons.error,
-                        size: 50,
-                        color: Colors.red,
-                      ),
-                    ),
-                  )
-                : Shimmer.fromColors(
-                    baseColor: Colors.grey[300]!,
-                    highlightColor: Colors.grey[100]!,
-                    child: Container(
-                      width: double.infinity,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  )),
-            const Gap(10),
-            CustomGradientButton(
-              height: 40,
-              text: "book_now".tr,
-              onTap: () {
-                Get.to(() => AllStaffScreen());
-              },
-              isLoading: false.obs,
-            ),
-          ],
-        ),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          DecoratedImage(
+            width: double.infinity,
+            height: 200,
+            image: AppImages.salonCoverImage,
+          ),
+          const Gap(10),
+          CustomGradientButton(
+            height: 40,
+            text: "Book Now",
+            onTap: () {
+              // log("on tap");
+              Get.toNamed(RouteName.bookAppointmentScreen);
+            }, isLoading: false.obs,
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildShopGalleryImage(String image) {
     return GestureDetector(
