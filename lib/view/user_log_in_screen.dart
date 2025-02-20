@@ -8,26 +8,49 @@ import 'package:hair_salon/constants/constants.dart';
 import 'package:hair_salon/repository/auth_api/firebase_auth_repository.dart';
 
 class UserLogInScreen extends StatelessWidget {
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController pinController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final RxBool verifyCode = false.obs;
   final FirebaseAuthRepository authService = FirebaseAuthRepository();
   final isVerifying = false.obs;
+/// Validates the form and creates the user profile
+  void validateAndSignUp() {
+    //validate all other fields
+  
+    if (emailController.text.isEmpty) {
+      Get.snackbar('error'.tr, 'email_empty'.tr);
+      return;
+    }
+    if (passwordController.text.isEmpty) {
+      Get.snackbar('error'.tr, 'password_empty'.tr);
+      return;
+    }
 
-  bool isValidPhoneNumber(String phoneNumber) {
-    if (phoneNumber.isEmpty) {
-      Get.snackbar('error'.tr, 'phone_empty'.tr);
-      return false;
+      _loginWithEmailPassword();
+
+      // Navigate to home screen after successful creation
+
+  }
+  Future<void> _loginWithEmailPassword() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+    isLoading.value = true;
+
+    if (email.isEmpty || password.isEmpty) {
+      isLoading.value = false;
+      Get.snackbar("error".tr, 'enter_email_and_password'.tr);
+      return;
     }
-    if (!RegExp(r'^[0-9]+$').hasMatch(phoneNumber)) {
-      Get.snackbar('error'.tr, 'phone_invalid'.tr);
-      return false;
+
+    final user = await authRepository
+        .loginWithEmailPass(email, password, context);
+    isLoading.value = false;
+
+    if (user != null) {
+      Get.offAllNamed(RouteName.adminBottomNavBar);
+    } else {
+      isLoading.value = false;
     }
-    if (phoneNumber.length < 10) {
-      Get.snackbar('error'.tr, 'phone_short'.tr);
-      return false;
-    }
-    return true;
   }
 
   @override
@@ -56,40 +79,40 @@ class UserLogInScreen extends StatelessWidget {
                 ),
                 const Gap(20),
                 CustomTextField(
-                  label: "phone_number".tr,
-                  hint: "50 123 4567",
-                  controller: phoneController,
-                  isPhoneNumber: true,
-                  maxLength: 10,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  label: "Enter Email".tr,
+                  hint: "xyz@gmail.com",
+                  controller: emailController,
+                  // isPhoneNumber: true,
+                  // maxLength: 10,
+                  // keyboardType: TextInputType.number,
+                  // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
                 const Gap(15),
-                Center(
-                  child: Obx(() {
-                    return CustomGradientButton(
-                      text: "get_code".tr,
-                      height: 45,
-                      width: 150,
-                      isLoading: isVerifying.value.obs,
-                      onTap: () async {
-                        final phoneNumber = phoneController.text;
-                        if (isValidPhoneNumber(phoneNumber)) {
-                          isVerifying.value = true;
-                          await authService.sendVerificationCode(phoneNumber,context);
-                          isVerifying.value = false;
-                        }
-                      },
-                      isShowGradient: false,
-                    );
-                  }),
-                ),
+                // Center(
+                //   child: Obx(() {
+                //     return CustomGradientButton(
+                //       text: "get_code".tr,
+                //       height: 45,
+                //       width: 150,
+                //       isLoading: isVerifying.value.obs,
+                //       onTap: () async {
+                //         final phoneNumber = emailController.text;
+                //         if (isValidPhoneNumber(phoneNumber)) {
+                //           isVerifying.value = true;
+                //           await authService.sendVerificationCode(phoneNumber,context);
+                //           isVerifying.value = false;
+                //         }
+                //       },
+                //       isShowGradient: false,
+                //     );
+                //   }),
+                // ),
                 const Gap(10),
                 CustomTextField(
-                  label: "enter_verification_code".tr,
-                  hint: "123456",
+                  label: "Enter Password".tr,
+                  hint: "******",
                   maxLength: 6,
-                  controller: pinController,
+                  controller: passwordController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
@@ -111,13 +134,13 @@ class UserLogInScreen extends StatelessWidget {
                     text: "continue".tr,
                     isLoading: verifyCode.value.obs,
                     onTap: () async {
-                      final phoneNumber = phoneController.text;
+                      final phoneNumber = emailController.text;
 
                       // Validate phone number
                       if (!isValidPhoneNumber(phoneNumber)) return;
 
                       // Check if verification code is entered
-                      if (pinController.text.isEmpty) {
+                      if (passwordController.text.isEmpty) {
                         Get.snackbar('error'.tr, 'verification_code_empty'.tr);
                         return;
                       }
@@ -128,8 +151,8 @@ class UserLogInScreen extends StatelessWidget {
                       try {
                         // Verify code
                         await authService.verifyCode(
-                          pinController.text,
-                          phoneController.text,
+                          passwordController.text,
+                          emailController.text,
                         );
                       } catch (e) {
                         // Handle errors
