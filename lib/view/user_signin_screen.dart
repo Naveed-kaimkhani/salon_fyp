@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,11 +44,22 @@ class UserSignInScreen extends StatelessWidget {
     }
 
     try {
-    User? user= await authService.login(email, password, context);
+      User? user = await authService.login(email, password, context);
       isLoading.value = false;
 
       if (user != null) {
-        Get.offAllNamed(RouteName.userHomeScreen);
+        final userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        if (userDoc.exists) {
+          // return userDoc.data();
+
+          Get.offAllNamed(RouteName.userHomeScreen);
+        } else {
+          Get.snackbar('error'.tr, 'Invalid Email or Password');
+        }
       }
     } catch (e) {
       isLoading.value = false;
