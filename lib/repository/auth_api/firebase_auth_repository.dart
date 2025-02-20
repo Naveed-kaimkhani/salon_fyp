@@ -283,8 +283,8 @@ class FirebaseAuthRepository implements AuthRepository {
   Future<void> clearUserSession() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('isAuthenticated');
-    await prefs.remove('uid');
-    await prefs.remove('phoneNumber');
+    // await prefs.remove('uid');
+    // await prefs.remove('phoneNumber');
   }
 
   /// Sign out the user
@@ -294,7 +294,7 @@ class FirebaseAuthRepository implements AuthRepository {
       await _auth.signOut();
       // Clear session
       await clearUserSession();
-      Get.offAllNamed(RouteName.splashScreen);
+      Get.offAllNamed(RouteName.userSplashScreen);
       Get.snackbar('success'.tr, 'signed_out'.tr);
     } catch (e) {
       Get.snackbar(

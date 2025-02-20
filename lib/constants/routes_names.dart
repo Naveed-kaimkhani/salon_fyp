@@ -1,9 +1,13 @@
 class RouteName {
   static const String splashScreen = '/splashScreen';
+  
+  static const String userSplashScreen = '/UserSplashScreen';
   static const String roleSelectionScreen = '/roleSelectionScreen';
   static const String userSignUpScreen = '/userSignUpScreen';
   static const String userLoginScreen = '/userLoginScreen';
   static const String userHomeScreen = '/userHomeScreen';
+  
+  static const String userSignInScreen = '/UserSignInScreen';
     static const String salonRegistrationScreen = '/SalonRegistrationScreen';
     
     static const String bussinessDetails = '/BussinessDetails';

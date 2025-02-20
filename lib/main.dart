@@ -16,6 +16,7 @@ import 'package:hair_salon/routes/app_routes.dart';
 
 import 'package:hair_salon/view/splash_screen.dart';
 import 'package:hair_salon/view/user_signin_screen.dart';
+import 'package:hair_salon/view/user_splash.dart';
 import 'package:hair_salon/view_model/controller/edit_staff_controller.dart';
 import 'package:hair_salon/view_model/index.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -74,13 +75,17 @@ void main() async {
   // Get saved locale
   final savedLocale = await TranslationService().getSavedLocale();
 
-  runApp(DevicePreview(
-    enabled: !kReleaseMode && !kDebugMode,
-    builder: (context) => SalonWithAdmin(
+  // runApp(DevicePreview(
+  //   enabled: !kReleaseMode && !kDebugMode,
+  //   builder: (context) => SalonWithAdmin(
+  //     isAuthenticated: isAuthenticated,
+  //     locale: savedLocale,
+  //   ),
+  // ));
+  runApp(SalonWithAdmin(
       isAuthenticated: isAuthenticated,
       locale: savedLocale,
-    ),
-  ));
+    ),);
 }
 
 class SalonWithAdmin extends StatelessWidget {
@@ -123,11 +128,11 @@ class SalonWithAdmin extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      // initialRoute: RouteName.splashScreen,
+      initialRoute: RouteName.userSplashScreen,
       getPages: AppRoutes.getAppRoutes(),
       locale: locale,
       translations: AppTranslations(),
-      home: UserSignInScreen(),
+      home: UserSplashScreen(),
     );
     // return MaterialApp(
     //   debugShowCheckedModeBanner: false,

@@ -6,6 +6,8 @@ import 'package:hair_salon/view/admin/admin_splash_screen.dart';
 import 'package:hair_salon/view/admin/image_management_screen.dart';
 import 'package:hair_salon/view/edit_appointment_screen.dart';
 import 'package:hair_salon/view/salon_registration/salon_registration_screen.dart';
+import 'package:hair_salon/view/user_signin_screen.dart';
+import 'package:hair_salon/view/user_splash.dart';
 import 'package:hair_salon/view/view.dart';
 
 import '../view/salon_registration/bussiness_details.dart';
@@ -29,10 +31,21 @@ class AppRoutes {
           name: RouteName.userHomeScreen,
           page: () => BottomNavigationBarComponent(),
         ),
+        GetPage(
+          name: RouteName.userSplashScreen,
+          page: () => UserSplashScreen(),
+        ),
          GetPage
+
          (
           name: RouteName.bussinessDetails,
           page: () => BussinessDetails()
+          ,
+        ),
+         GetPage
+         (
+          name: RouteName.userSignInScreen,
+          page: () => UserSignInScreen()
           ,
         ),
          GetPage(

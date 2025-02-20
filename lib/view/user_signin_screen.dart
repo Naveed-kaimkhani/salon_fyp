@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:hair_salon/components/components.dart';
 import 'package:hair_salon/constants/constants.dart';
 import 'package:hair_salon/repository/auth_api/firebase_auth_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserSignInScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -55,7 +56,8 @@ class UserSignInScreen extends StatelessWidget {
 
         if (userDoc.exists) {
           // return userDoc.data();
-
+   final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isAuthenticated', true);
           Get.offAllNamed(RouteName.userHomeScreen);
         } else {
           Get.snackbar('error'.tr, 'Invalid Email or Password');
@@ -105,18 +107,18 @@ class UserSignInScreen extends StatelessWidget {
                   controller: passwordController,
                   obscureText: true,
                 ),
-                // Align(
-                //   alignment: Alignment.topRight,
-                //   child: TextButton(
-                //     onPressed: () {
-                //       Get.toNamed(RouteName.adminLoginScreen);
-                //     },
-                //     child: Text(
-                //       "login_as_owner".tr,
-                //       style: const TextStyle(color: AppColors.purple),
-                //     ),
-                //   ),
-                // ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Get.toNamed(RouteName.userLoginScreen);
+                    },
+                    child: Text(
+                      "Don't have an account? Sign Up",
+                      style: const TextStyle(color: AppColors.purple),
+                    ),
+                  ),
+                ),
                 const Gap(20),
                 Obx(() {
                   return CustomGradientButton(
