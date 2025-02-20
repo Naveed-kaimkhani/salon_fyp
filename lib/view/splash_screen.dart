@@ -18,36 +18,41 @@ class _SplashScreenState extends State<SplashScreen> {
   late Future<bool> isApproved;
   @override
   void initState() {
+    log('initState');
     super.initState();
     isAdminAuthenticated = _isAdminAuthenticated();
     isUserAuthenticated = _isUserAuthenticated();
     isApproved = _isApproved();
-
+    log('isAdminAuthenticated: $isAdminAuthenticated');
+    log('isUserAuthenticated: $isUserAuthenticated');
+    log('isApproved: $isApproved');
     Future.delayed(const Duration(seconds: 3), () async {
       bool adminAuth = await isAdminAuthenticated;
       bool userAuth = await isUserAuthenticated;
 
-      log("Admin Authenticated: $adminAuth");
-      log("User Authenticated: $userAuth");
+    //   log("Admin Authenticated: $adminAuth");
+    //   log("User Authenticated: $userAuth");
 
-      if (adminAuth) {
-          bool approved = await isApproved;
+    //   if (adminAuth) {
+    //       bool approved = await isApproved;
        
-     if (approved) {
-           Get.offAndToNamed(RouteName.adminBottomNavBar);
+    //  if (approved) {
+    //        Get.offAndToNamed(RouteName.adminBottomNavBar);
         
-        }else{
-            Get.offAndToNamed(RouteName.pendingApprovalScreen);
+    //     }else{
+    //         Get.offAndToNamed(RouteName.pendingApprovalScreen);
          
-        }
-      } else if (userAuth) {
+    //     }
+    //   } else if (userAuth) {
       
-        Get.offAndToNamed(RouteName.userHomeScreen);
+    //     Get.offAndToNamed(RouteName.userHomeScreen);
         
-      } else {
-        Get.offAllNamed(RouteName.userLoginScreen);
-      }
-    });
+    //   } else {
+    //     Get.offAllNamed(RouteName.userLoginScreen);
+    //   }
+    Get.offAllNamed(RouteName.userLoginScreen);
+    }
+    );
   }
 
   Future<bool> _isAdminAuthenticated() async {
@@ -67,6 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    log('build');
     return Scaffold(
       body: FutureBuilder<bool>(
         future: Future.wait([isAdminAuthenticated, isUserAuthenticated])
