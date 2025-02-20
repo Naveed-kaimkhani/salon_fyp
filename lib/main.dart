@@ -13,8 +13,9 @@ import 'package:hair_salon/localization/translation_service.dart';
 import 'package:hair_salon/repository/index.dart';
 import 'package:hair_salon/repository/manage_staff_api/manage_staff_repo_impl%20.dart';
 import 'package:hair_salon/routes/app_routes.dart';
-import 'package:hair_salon/view/salon_registration/pending_approval_screen.dart';
+
 import 'package:hair_salon/view/splash_screen.dart';
+import 'package:hair_salon/view/user_signin_screen.dart';
 import 'package:hair_salon/view_model/controller/edit_staff_controller.dart';
 import 'package:hair_salon/view_model/index.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -126,7 +127,7 @@ class SalonWithAdmin extends StatelessWidget {
       getPages: AppRoutes.getAppRoutes(),
       locale: locale,
       translations: AppTranslations(),
-      home: SplashScreen(),
+      home: UserSignInScreen(),
     );
     // return MaterialApp(
     //   debugShowCheckedModeBanner: false,
