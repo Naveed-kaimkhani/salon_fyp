@@ -10,6 +10,7 @@ import 'package:hair_salon/repository/auth_api/auth_api.dart';
 import 'package:hair_salon/view/admin/admin.dart';
 import 'package:hair_salon/view/bottom_navigation_bar_component.dart';
 import 'package:hair_salon/view/user_log_in_screen.dart';
+import 'package:hair_salon/view/user_signup_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirebaseAuthRepository implements AuthRepository {
@@ -358,6 +359,38 @@ class FirebaseAuthRepository implements AuthRepository {
     } catch (e) {
       // Show error message
       Get.snackbar('error'.tr, 'invalid_email_or_password'.tr);
+      return null;
+    }
+  }
+
+  @override
+  Future<User?> SignUpUserWithEmailPass(
+      String email, String password, context) async {
+    try {
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Save session data in SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isAuthenticated', true);
+
+
+      // Navigate to admin dashboard and clear all previous routes
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => UserSignUpScreen(),
+        ),
+        (route) => false, // Clear all previous routes
+      );
+
+      return userCredential.user;
+    } catch (e) {
+      // Show error message
+      // Get.snackbar('error'.tr, 'invalid_email_or_password'.tr);
+      Get.snackbar('error'.tr, e.toString());
       return null;
     }
   }

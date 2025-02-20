@@ -12,11 +12,12 @@ class UserLogInScreen extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final RxBool verifyCode = false.obs;
   final FirebaseAuthRepository authService = FirebaseAuthRepository();
-  final isVerifying = false.obs;
-/// Validates the form and creates the user profile
-  void validateAndSignUp() {
-    //validate all other fields
-  
+  final RxBool isLoading = false.obs;
+
+  UserLogInScreen({super.key});
+
+  /// Validates the form and creates the user profile
+  void validateAndSignUp(context) {
     if (emailController.text.isEmpty) {
       Get.snackbar('error'.tr, 'email_empty'.tr);
       return;
@@ -26,12 +27,10 @@ class UserLogInScreen extends StatelessWidget {
       return;
     }
 
-      _loginWithEmailPassword();
-
-      // Navigate to home screen after successful creation
-
+    _loginWithEmailPassword(context);
   }
-  Future<void> _loginWithEmailPassword() async {
+
+  Future<void> _loginWithEmailPassword(context) async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
     isLoading.value = true;
@@ -42,14 +41,16 @@ class UserLogInScreen extends StatelessWidget {
       return;
     }
 
-    final user = await authRepository
-        .loginWithEmailPass(email, password, context);
-    isLoading.value = false;
-
-    if (user != null) {
-      Get.offAllNamed(RouteName.adminBottomNavBar);
-    } else {
+    try {
+    await authService.SignUpUserWithEmailPass(email, password, context);
       isLoading.value = false;
+
+      // if (user != null) {
+      //   Get.offAllNamed(RouteName.adminBottomNavBar);
+      // }
+    } catch (e) {
+      isLoading.value = false;
+      Get.snackbar('error'.tr, e.toString());
     }
   }
 
@@ -72,7 +73,7 @@ class UserLogInScreen extends StatelessWidget {
                 ),
                 const Gap(30),
                 LabelText(
-                  text: "welcome".tr,
+                  text: "Hi, Signup",
                   textColor: AppColors.purple,
                   fontSize: AppFontSize.xlarge,
                   weight: FontWeight.w600,
@@ -82,39 +83,14 @@ class UserLogInScreen extends StatelessWidget {
                   label: "Enter Email".tr,
                   hint: "xyz@gmail.com",
                   controller: emailController,
-                  // isPhoneNumber: true,
-                  // maxLength: 10,
-                  // keyboardType: TextInputType.number,
-                  // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
                 const Gap(15),
-                // Center(
-                //   child: Obx(() {
-                //     return CustomGradientButton(
-                //       text: "get_code".tr,
-                //       height: 45,
-                //       width: 150,
-                //       isLoading: isVerifying.value.obs,
-                //       onTap: () async {
-                //         final phoneNumber = emailController.text;
-                //         if (isValidPhoneNumber(phoneNumber)) {
-                //           isVerifying.value = true;
-                //           await authService.sendVerificationCode(phoneNumber,context);
-                //           isVerifying.value = false;
-                //         }
-                //       },
-                //       isShowGradient: false,
-                //     );
-                //   }),
-                // ),
                 const Gap(10),
                 CustomTextField(
                   label: "Enter Password".tr,
                   hint: "******",
-                  maxLength: 6,
                   controller: passwordController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  obscureText: true,
                 ),
                 Align(
                   alignment: Alignment.topRight,
@@ -132,39 +108,8 @@ class UserLogInScreen extends StatelessWidget {
                 Obx(() {
                   return CustomGradientButton(
                     text: "continue".tr,
-                    isLoading: verifyCode.value.obs,
-                    onTap: () async {
-                      final phoneNumber = emailController.text;
-
-                      // Validate phone number
-                      if (!isValidPhoneNumber(phoneNumber)) return;
-
-                      // Check if verification code is entered
-                      if (passwordController.text.isEmpty) {
-                        Get.snackbar('error'.tr, 'verification_code_empty'.tr);
-                        return;
-                      }
-
-                      // Set loading state
-                      verifyCode.value = true;
-
-                      try {
-                        // Verify code
-                        await authService.verifyCode(
-                          passwordController.text,
-                          emailController.text,
-                        );
-                      } catch (e) {
-                        // Handle errors
-                        Get.snackbar(
-                            'error'.tr,
-                            'verification_failed'
-                                .trParams({'error': e.toString()}));
-                      } finally {
-                        // Reset loading state
-                        verifyCode.value = false;
-                      }
-                    },
+                    isLoading: isLoading.value.obs,
+                    onTap: () => validateAndSignUp(context),
                   );
                 }),
                 const Gap(20),

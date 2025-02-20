@@ -23,6 +23,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLength;
+  final bool obscureText;
 
   CustomTextField({
     super.key,
@@ -41,6 +42,7 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.inputFormatters,
     this.maxLength,
+    this.obscureText = false,
   });
 
   final PasswordController passwordController = Get.put(PasswordController());
@@ -125,7 +127,7 @@ class CustomTextField extends StatelessWidget {
                   validator: validator,
                   obscureText: isPasswordField
                       ? passwordController.isObscure.value
-                      : false,
+                      : obscureText,
                   onChanged: (value) {
                     field.didChange(value);
                     if (onChanged != null) {
