@@ -10,22 +10,22 @@ class AccountVerificationScreen extends StatefulWidget {
 class _AccountVerificationScreenState extends State<AccountVerificationScreen> {
   int selectedIndex = 0;
 
-  final List<Map<String, String>> accounts = [
-    {
-      'salonName': 'Luxury Salon',
-      'idCard': 'View file',
-      'businessLicense': 'View file',
-      'status': 'Pending',
-      'submissionDate': '12/05/2024'
-    },
-    {
-      'salonName': 'Elite Spa',
-      'idCard': 'View file',
-      'businessLicense': 'View file',
-      'status': 'Approved',
-      'submissionDate': '10/11/2023'
-    },
-  ];
+  // final List<Map<String, String>> accounts = [
+  //   {
+  //     'salonName': 'Luxury Salon',
+  //     'idCard': 'View file',
+  //     'businessLicense': 'View file',
+  //     'status': 'Pending',
+  //     'submissionDate': '12/05/2024'
+  //   },
+  //   {
+  //     'salonName': 'Elite Spa',
+  //     'idCard': 'View file',
+  //     'businessLicense': 'View file',
+  //     'status': 'Approved',
+  //     'submissionDate': '10/11/2023'
+  //   },
+  // ];
 
   @override
   Widget build(BuildContext context) {

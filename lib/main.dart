@@ -132,12 +132,8 @@ class SalonWithAdmin extends StatelessWidget {
       getPages: AppRoutes.getAppRoutes(),
       locale: locale,
       translations: AppTranslations(),
-      home: UserSplashScreen(),
+      home: AccountVerificationScreen(),
     );
-    // return MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   home:SalonRegistrationScreen(),
-    // );
   }
 }
 
