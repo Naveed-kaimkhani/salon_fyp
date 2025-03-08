@@ -21,6 +21,8 @@ import 'package:hair_salon/view_model/controller/edit_staff_controller.dart';
 import 'package:hair_salon/view_model/index.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
+import 'view/salon_registration/salon_verification.dart';
+
 // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 //     FlutterLocalNotificationsPlugin();
 
@@ -132,7 +134,7 @@ class SalonWithAdmin extends StatelessWidget {
       getPages: AppRoutes.getAppRoutes(),
       locale: locale,
       translations: AppTranslations(),
-      home: AccountVerificationScreen(),
+      home: SplashScreen(),
     );
   }
 }
