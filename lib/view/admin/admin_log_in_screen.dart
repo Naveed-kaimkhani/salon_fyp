@@ -87,13 +87,13 @@ class _AdminLogInScreenState extends State<AdminLogInScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Gap(30),
-              Center(
-                child: Image.asset(
-                  AppImages.logo,
-                  width: Get.width * 0.6,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              // Center(
+              //   child: Image.asset(
+              //     AppImages.logo,
+              //     width: Get.width * 0.6,
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
               const Gap(50),
               LabelText(
                 text: "welcome".tr,

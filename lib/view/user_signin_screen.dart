@@ -79,13 +79,13 @@ class UserSignInScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Gap(30),
-                Center(
-                  child: Image.asset(
-                    AppImages.logo,
-                    width: 220,
-                  ),
-                ),
+                // const Gap(30),
+                // Center(
+                //   child: Image.asset(
+                //     AppImages.logo,
+                //     width: 220,
+                //   ),
+                // ),
                 const Gap(30),
                 LabelText(
                   text: "Hi, Welcome",

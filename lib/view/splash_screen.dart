@@ -71,7 +71,8 @@ class _SplashScreenState extends State<SplashScreen> {
           } else {
             bool isAdmin = snapshot.data ?? false;
             return SizedBox.expand(
-              child: Image.asset(
+              child: 
+              Image.asset(
                 isAdmin
                     ? AppImages.adminSplashImg
                     : AppImages.customerSplashImg,

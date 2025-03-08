@@ -19,7 +19,7 @@ class CustomDrawer extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             accountName: const LabelText(
-              text: 'Shlomi Stav',
+              text: 'Salon At Your Doorstep',
               fontSize: AppFontSize.medium,
               weight: FontWeight.w600,
               textColor: AppColors.white,
@@ -41,7 +41,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               child: Center(
                 child: LabelText(
-                  text: _getInitials(user?.displayName ?? "Shlomi Stav"),
+                  text: _getInitials(user?.displayName ?? "Salon At Your Doorstep"),
                   fontSize: AppFontSize.large,
                   weight: FontWeight.w700,
                 ),

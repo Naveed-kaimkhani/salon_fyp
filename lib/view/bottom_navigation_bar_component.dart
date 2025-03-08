@@ -17,7 +17,7 @@ class BottomNavigationBarComponent extends StatelessWidget {
   final List<Widget> _screens = [
     UserHomeScreen(),
     AppointmentScreen(),
-    WaitingListScreen(),
+    // WaitingListScreen(),
     UserProfileScreen(authRepository: Get.find<AuthRepository>()),
   ];
 
@@ -44,11 +44,11 @@ class BottomNavigationBarComponent extends StatelessWidget {
               activeIcon: SvgPicture.asset(AppSvgIcons.calendarFilled),
               label: 'bookings'.tr,
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppSvgIcons.noteBookOutlined),
-              activeIcon: SvgPicture.asset(AppSvgIcons.noteBookFilled),
-              label: 'waiting_list'.tr,
-            ),
+            // BottomNavigationBarItem(
+            //   icon: SvgPicture.asset(AppSvgIcons.noteBookOutlined),
+            //   activeIcon: SvgPicture.asset(AppSvgIcons.noteBookFilled),
+            //   label: 'waiting_list'.tr,
+            // ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(AppSvgIcons.personOutlined),
               activeIcon: SvgPicture.asset(AppSvgIcons.personFilled),

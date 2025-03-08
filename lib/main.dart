@@ -77,17 +77,17 @@ void main() async {
   // Get saved locale
   final savedLocale = await TranslationService().getSavedLocale();
 
-  // runApp(DevicePreview(
-  //   enabled: !kReleaseMode && !kDebugMode,
-  //   builder: (context) => SalonWithAdmin(
-  //     isAuthenticated: isAuthenticated,
-  //     locale: savedLocale,
-  //   ),
-  // ));
-  runApp(SalonWithAdmin(
+  runApp(DevicePreview(
+    // enabled: !kReleaseMode && !kDebugMode,
+    builder: (context) => SalonWithAdmin(
       isAuthenticated: isAuthenticated,
       locale: savedLocale,
-    ),);
+    ),
+  ));
+  // runApp(SalonWithAdmin(
+  //     isAuthenticated: isAuthenticated,
+  //     locale: savedLocale,
+  //   ),);
 }
 
 class SalonWithAdmin extends StatelessWidget {
@@ -101,7 +101,7 @@ class SalonWithAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Shlomi Stav',
+      title: 'Salon at your Doorstep',
       defaultTransition: Transition.cupertino,
       theme: ThemeData(
         fontFamily: "Inter",

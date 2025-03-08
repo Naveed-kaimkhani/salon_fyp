@@ -100,15 +100,15 @@ class _TimeSelectionState extends State<TimeSelection> {
               weight: FontWeight.w600,
               fontSize: AppFontSize.xmedium,
             ),
-            InkWell(
-              onTap: () => _showBottomSheet(context, firebaseAppointmentRepo),
-              child: LabelText(
-                text: 'join_waiting_list'.tr,
-                fontSize: AppFontSize.xsmall,
-                weight: FontWeight.w400,
-                textColor: AppColors.blue,
-              ),
-            ),
+            // InkWell(
+            //   onTap: () => _showBottomSheet(context, firebaseAppointmentRepo),
+            //   child: LabelText(
+            //     text: 'join_waiting_list'.tr,
+            //     fontSize: AppFontSize.xsmall,
+            //     weight: FontWeight.w400,
+            //     textColor: AppColors.blue,
+            //   ),
+            // ),
           ],
         ),
         const SizedBox(height: 10),

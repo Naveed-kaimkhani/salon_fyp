@@ -117,12 +117,12 @@ class _SalonRegistrationScreenState extends State<SalonRegistrationScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Image.asset(
-                  AppImages.logo,
-                  width: 220,
-                ),
-              ),
+              // Center(
+              //   child: Image.asset(
+              //     AppImages.logo,
+              //     width: 220,
+              //   ),
+              // ),
               const Gap(50),
               LabelText(
                 text: "Finish Signing Up".tr,

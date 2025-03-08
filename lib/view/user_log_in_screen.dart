@@ -62,15 +62,16 @@ class UserLogInScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Gap(30),
-                Center(
-                  child: Image.asset(
-                    AppImages.logo,
-                    width: 220,
-                  ),
-                ),
+                // const Gap(30),
+                // Center(
+                //   child: Image.asset(
+                //     AppImages.logo,
+                //     width: 220,
+                //   ),
+                // ),
                 const Gap(30),
                 LabelText(
                   text: "Hi, Signup",

@@ -94,12 +94,12 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Image.asset(
-                  AppImages.logo,
-                  width: 220,
-                ),
-              ),
+              // Center(
+              //   child: Image.asset(
+              //     AppImages.logo,
+              //     width: 220,
+              //   ),
+              // ),
               const Gap(50),
               LabelText(
                 text: "finish_signing_up".tr,
