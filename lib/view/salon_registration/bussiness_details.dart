@@ -18,15 +18,13 @@ class BussinessDetails extends StatefulWidget {
 }
 
 class _BussinessDetailsState extends State<BussinessDetails> {
-  late TextEditingController businessAdressController,
-      operatingHoursController;
+  late TextEditingController businessAdressController, operatingHoursController;
 
   final FirebaseAuthRepository authService = FirebaseAuthRepository();
- final StaffServicesRepository _staffServices =
+  final StaffServicesRepository _staffServices =
       Get.find<StaffServicesRepository>();
   var isCreatingUser = false.obs;
   Salon salon = Get.arguments;
-
 
   Uint8List? businessLicenseImage;
   Uint8List? idProofImage;
@@ -58,103 +56,85 @@ class _BussinessDetailsState extends State<BussinessDetails> {
       });
     }
   }
-void _login() async{
-  if (salon.email == null || salon.password == null) {
-    Get.snackbar('Error', 'Email and password are required');
-    return;
-  }
-  
-  isCreatingUser = true.obs;
-  authService.signUpUser(salon.email!, salon.password!, context)
-    .then((User? user) async {
-      if (user != null) {
-try {
 
-   final String businessLicenseUrl= await  _staffServices.uploadSalonDocs(
-          imageFile: businessLicenseImage!,
-          uid: user.uid,
-          documentType: 'business_license',
-        );
-        
-
-   final String idCardUrl= await  _staffServices.uploadSalonDocs(
-          imageFile: businessLicenseImage!,
-          uid: user.uid,
-          documentType: 'id_card',
-        );
-      await authService.createSalonProfile(
-        // salon: Salon(
-        //   // uid: salon.uid,
-        //   businessName: salon.businessName,
-        //   ownerName: salon.ownerName,
-        //   phoneNumber: salon.phoneNumber,
-        //   email: salon.email,
-        //   businessAddress: businessAdressController.text,
-        //   operatingHours: operatingHoursController.text,
-        //   businessLicenseUrl: businessLicenseUrl, // Handle upload logic
-        //   idProofUrl: idCardUrl, // Handle upload logic
-        //   createdAt: DateTime.now(),
-        // ),
-        salon: Salon(
-          // uid: salon.uid,
-          businessName: salon.businessName,
-          ownerName:salon.ownerName,
-          phoneNumber:salon.phoneNumber,
-          email: salon.email,
-          businessAddress: businessAdressController.text,
-          operatingHours: operatingHoursController.text,
-          businessLicenseUrl: businessLicenseUrl, // Handle upload logic
-          idProofUrl: idCardUrl, // Handle upload logic
-          createdAt: DateTime.now(),
-        ),
-      );
-      
-        isCreatingUser.value = false;
-      Get.offAllNamed(RouteName.pendingApprovalScreen);
-    } catch (error) {
-      
-      isCreatingUser.value = false;
-      Get.snackbar('Error', 'Failed to sign up: ${error.toString()}');
-    } finally {
-      
-        isCreatingUser.value = false;
+  void _login() async {
+    if (salon.email == null || salon.password == null) {
+      Get.snackbar('Error', 'Email and password are required');
+      return;
     }
+
+    isCreatingUser = true.obs;
+    authService
+        .signUpUser(salon.email!, salon.password!, context)
+        .then((User? user) async {
+      if (user != null) {
+        try {
+          final String businessLicenseUrl =
+              await _staffServices.uploadSalonDocs(
+            imageFile: businessLicenseImage!,
+            uid: user.uid,
+            documentType: 'business_license',
+          );
+
+          final String idCardUrl = await _staffServices.uploadSalonDocs(
+            imageFile: businessLicenseImage!,
+            uid: user.uid,
+            documentType: 'id_card',
+          );
+          await authService.createSalonProfile(
+            salon: Salon(
+              uid: salon.uid,
+              businessName: salon.businessName,
+              ownerName: salon.ownerName,
+              phoneNumber: salon.phoneNumber,
+              email: salon.email,
+              businessAddress: businessAdressController.text,
+              operatingHours: operatingHoursController.text,
+              businessLicenseUrl: businessLicenseUrl, // Handle upload logic
+              idProofUrl: idCardUrl, // Handle upload logic
+              createdAt: DateTime.now(),
+            ),
+          );
+
+          isCreatingUser.value = false;
+          Get.offAllNamed(RouteName.pendingApprovalScreen);
+        } catch (error) {
+          isCreatingUser.value = false;
+          Get.snackbar('Error', 'Failed to sign up: ${error.toString()}');
+        } finally {
+          isCreatingUser.value = false;
+        }
       } else {
-   
-      isCreatingUser.value = false;
+        isCreatingUser.value = false;
       }
     });
   }
+
   void validateAndSignUp() async {
     if (businessAdressController.text.isEmpty) {
-      
       isCreatingUser.value = false;
       Get.snackbar('Error', 'Business Address cannot be empty');
-      
+
       return;
     }
     if (operatingHoursController.text.isEmpty) {
-      
       isCreatingUser.value = false;
       Get.snackbar('Error', 'Operating Hours cannot be empty');
-    
+
       return;
     }
     if (businessLicenseImage == null) {
-      
       isCreatingUser.value = false;
       Get.snackbar('Error', 'Please upload Business License');
-    
+
       return;
     }
     if (idProofImage == null) {
-    
       isCreatingUser.value = false;
       Get.snackbar('Error', 'Please upload ID Proof');
-    
+
       return;
     }
-
 
     _login();
   }

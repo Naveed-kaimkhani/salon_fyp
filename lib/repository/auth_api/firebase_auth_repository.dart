@@ -202,7 +202,6 @@ class FirebaseAuthRepository implements AuthRepository {
 
   @override
   Future<void> createSalonProfile({
-  
     //accept salon model
     required Salon salon,
   }) async {
@@ -214,7 +213,7 @@ class FirebaseAuthRepository implements AuthRepository {
             .collection('salons')
             .doc(user.uid)
             .set(salon.toJson());
-        Get.snackbar('success'.tr,'Salon Profile Created Successfully');
+        Get.snackbar('success'.tr, 'Salon Profile Created Successfully');
         // await saveUserSession(user.uid, phone);
       } else {
         // throw Exception('no_authenticated_user'.tr);
@@ -231,6 +230,7 @@ class FirebaseAuthRepository implements AuthRepository {
   User? getCurrentUser() {
     return _auth.currentUser;
   }
+
   Future<User?> login(String email, String password, context) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
@@ -239,7 +239,7 @@ class FirebaseAuthRepository implements AuthRepository {
       );
       return userCredential.user;
     } catch (e) {
-    Get.snackbar('error', 'invalid Email or Password');
+      Get.snackbar('error', 'invalid Email or Password');
     }
   }
 
@@ -257,7 +257,6 @@ class FirebaseAuthRepository implements AuthRepository {
     return null;
   }
 
-
   /// Save the user session in shared preferences
   @override
   Future<void> saveUserSession(String uid, String phoneNumber) async {
@@ -266,8 +265,9 @@ class FirebaseAuthRepository implements AuthRepository {
     await prefs.setString('uid', uid);
     await prefs.setString('phoneNumber', phoneNumber);
   }
+
   @override
-  Future<void> saveApprovalSession(String uid) async {  
+  Future<void> saveApprovalSession(String uid) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isApproved', true);
   }
@@ -275,7 +275,9 @@ class FirebaseAuthRepository implements AuthRepository {
   /// Check if the user is authenticated
   @override
   Future<bool> isUserAuthenticated() async {
+    log("inside isuserAuthenticed");
     final prefs = await SharedPreferences.getInstance();
+    log(prefs.getBool('isAuthenticated').toString());
     return prefs.getBool('isAuthenticated') ?? false;
   }
 

@@ -1,0 +1,2 @@
+/Users/naveedkk/Desktop/salon_fyp/android/app/.cxx/Debug/3g171v1i/x86_64/CMakeFiles/edit_cache.dir
+/Users/naveedkk/Desktop/salon_fyp/android/app/.cxx/Debug/3g171v1i/x86_64/CMakeFiles/rebuild_cache.dir
