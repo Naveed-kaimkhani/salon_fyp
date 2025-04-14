@@ -53,10 +53,14 @@ class _UserSplashScreenState extends State<UserSplashScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text(''));
           } else {
             // bool isAdmin = snapshot.data ?? false;
-            return SizedBox.expand(
+            return Center(
+              child: Image.asset(AppImages.logo),
+            );
+
+            SizedBox.expand(
               child: Image.asset(
                 AppImages.customerSplashImg,
                 fit: BoxFit.fill,

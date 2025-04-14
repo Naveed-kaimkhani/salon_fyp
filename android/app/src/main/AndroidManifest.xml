@@ -19,7 +19,7 @@
     </queries>
     
     <application
-        android:label="Shlomi Stav"
+        android:label="Salon at Door Step"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="true"

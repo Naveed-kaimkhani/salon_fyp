@@ -461,11 +461,11 @@ class FirebaseAppointmentRepository implements IAppointmentRepository {
 
       await _firestore.collection('appointments').doc(appointment.id).delete();
 
-      await _promoteWaitingListUser(specialistUid);
+      // await _promoteWaitingListUser(specialistUid);
       await moveAppointmentToCancel(appointment);
-      Get.snackbar('success'.tr, 'appointment_cancelled_successfully'.tr);
+      Get.snackbar('Success', 'Appointment Cancelle Successfully');
     } catch (e) {
-      Get.snackbar('error_deleting_appointment'.tr, '$e');
+      // Get.snackbar('error_deleting_appointment'.tr, '$e');
       rethrow;
     }
   }

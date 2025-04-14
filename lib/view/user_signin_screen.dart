@@ -56,8 +56,8 @@ class UserSignInScreen extends StatelessWidget {
 
         if (userDoc.exists) {
           // return userDoc.data();
-   final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isAuthenticated', true);
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('isAuthenticated', true);
           Get.offAllNamed(RouteName.userHomeScreen);
         } else {
           Get.snackbar('error'.tr, 'Invalid Email or Password');
@@ -79,13 +79,13 @@ class UserSignInScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // const Gap(30),
-                // Center(
-                //   child: Image.asset(
-                //     AppImages.logo,
-                //     width: 220,
-                //   ),
-                // ),
+                const Gap(30),
+                Center(
+                  child: Image.asset(
+                    AppImages.logo,
+                    width: 220,
+                  ),
+                ),
                 const Gap(30),
                 LabelText(
                   text: "Hi, Welcome",

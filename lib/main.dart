@@ -1,7 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -13,18 +12,12 @@ import 'package:hair_salon/localization/translation_service.dart';
 import 'package:hair_salon/repository/index.dart';
 import 'package:hair_salon/repository/manage_staff_api/manage_staff_repo_impl%20.dart';
 import 'package:hair_salon/routes/app_routes.dart';
-
 import 'package:hair_salon/view/splash_screen.dart';
-import 'package:hair_salon/view/user_signin_screen.dart';
+import 'package:hair_salon/view/user_log_in_screen.dart';
 import 'package:hair_salon/view/user_splash.dart';
 import 'package:hair_salon/view_model/controller/edit_staff_controller.dart';
 import 'package:hair_salon/view_model/index.dart';
 import 'package:timezone/data/latest.dart' as tz;
-
-import 'view/salon_registration/salon_verification.dart';
-
-// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-//     FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,7 +51,7 @@ void main() async {
   NotificationService notificationService = NotificationService();
   notificationService.requestPermissions();
   notificationService.listenToFirestoreNotifications();
-  notificationService.saveDeviceToken();
+  // notificationService.saveDeviceToken();
 
   // Initialize time zones for scheduled notifications
   tz.initializeTimeZones();
@@ -77,12 +70,16 @@ void main() async {
   // Get saved locale
   final savedLocale = await TranslationService().getSavedLocale();
 
-  runApp(DevicePreview(
-    // enabled: !kReleaseMode && !kDebugMode,
-    builder: (context) => SalonWithAdmin(
-      isAuthenticated: isAuthenticated,
-      locale: savedLocale,
-    ),
+  runApp(
+
+      //   DevicePreview(
+      //   // enabled: !kReleaseMode && !kDebugMode,
+      //   builder: (context) =>
+      // ));
+
+      SalonWithAdmin(
+    isAuthenticated: isAuthenticated,
+    locale: savedLocale,
   ));
   // runApp(SalonWithAdmin(
   //     isAuthenticated: isAuthenticated,
@@ -134,7 +131,7 @@ class SalonWithAdmin extends StatelessWidget {
       getPages: AppRoutes.getAppRoutes(),
       locale: locale,
       translations: AppTranslations(),
-      home: SplashScreen(),
+      home: UserSplashScreen(),
     );
   }
 }
@@ -164,15 +161,6 @@ Future<void> initializeNotifications() async {
   final InitializationSettings initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
   );
-
-  // await flutterLocalNotificationsPlugin.initialize(
-  //   initializationSettings,
-  //   onDidReceiveNotificationResponse: (NotificationResponse response) {
-  //     if (response.payload == RouteName.appointmentScreen) {
-  //       Get.toNamed(RouteName.appointmentScreen);
-  //     }
-  //   },
-  // );
 }
 
 void handleInitialMessage(RemoteMessage message) {

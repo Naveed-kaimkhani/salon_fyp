@@ -3,7 +3,7 @@ class AppImages {
   static String customerSplashImg = "assets/images/splash_for_customers.png";
   static String adminSplashImg = "assets/images/spalsh_for_admin.png";
 
-  static String logo = "assets/images/logo.png";
+  static String logo = "assets/images/salon_logo.png";
   static String bookingComfirmed = "assets/images/bookin_confirmed.png";
   //prfile image
   static String profilePicture = "assets/images/profile_picture.png";
@@ -12,6 +12,8 @@ class AppImages {
 
   static String galleryIamge_1 = "assets/images/gallery_image_1.jpeg";
   static String galleryIamge_2 = "assets/images/gallery_image_2.jpeg";
+
+  static String galleryIamge_3 = "assets/images/gallery_image_3.jpeg";
   static String salonCoverImage = "assets/images/salon_cover_image.jpeg";
   //specialist images
   static String specialistImage_1 = "assets/images/specialist_1.png";

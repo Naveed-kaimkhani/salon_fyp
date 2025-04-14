@@ -1,7 +1,5 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hair_salon/constants/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,14 +30,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
       if (adminAuth) {
         if (approved) {
-          Get.offAndToNamed(RouteName.adminBottomNavBar);
+          // Get.offAndToNamed(RouteName.adminBottomNavBar);
         } else {
-          Get.offAndToNamed(RouteName.pendingApprovalScreen);
+          // Get.offAndToNamed(RouteName.pendingApprovalScreen);
         }
       } else if (userAuth) {
-        Get.offAndToNamed(RouteName.userHomeScreen);
+        // Get.offAndToNamed(RouteName.userHomeScreen);
       } else {
-        Get.offAllNamed(RouteName.userLoginScreen);
+        // Get.offAllNamed(RouteName.userLoginScreen);
       }
     });
   }
@@ -48,10 +46,12 @@ class _SplashScreenState extends State<SplashScreen> {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool('isAdminAuthenticated') ?? false;
   }
- Future<bool> _isApproved() async {
+
+  Future<bool> _isApproved() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool('isApproved') ?? false;
   }
+
   Future<bool> _isUserAuthenticated() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool('isAuthenticated') ?? false;
@@ -60,28 +60,29 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<bool>(
-        future: Future.wait([isAdminAuthenticated, isUserAuthenticated])
-            .then((results) => results[0] || results[1]),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            bool isAdmin = snapshot.data ?? false;
-            return SizedBox.expand(
-              child: 
-              Image.asset(
-                isAdmin
-                    ? AppImages.adminSplashImg
-                    : AppImages.customerSplashImg,
-                fit: BoxFit.fill,
-              ),
-            );
-          }
-        },
-      ),
+      body: Text("hi"),
+      //  FutureBuilder<bool>(
+      //   future: Future.wait([isAdminAuthenticated, isUserAuthenticated])
+      //       .then((results) => results[0] || results[1]),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.waiting) {
+      //       return Center(child: CircularProgressIndicator());
+      //     } else if (snapshot.hasError) {
+      //       return Center(child: Text(' '));
+      //     } else {
+      //       bool isAdmin = snapshot.data ?? false;
+      //       return SizedBox.expand(
+      //         child:
+      //         Image.asset(
+      //           isAdmin
+      //               ? AppImages.adminSplashImg
+      //               : AppImages.customerSplashImg,
+      //           fit: BoxFit.fill,
+      //         ),
+      //       );
+      //     }
+      //   },
+      // ),
     );
   }
 }
