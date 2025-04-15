@@ -181,7 +181,7 @@ class FirebaseAppointmentRepository implements IAppointmentRepository {
         'id': docRef.id,
       });
 
-      final NotificationService notificationService = NotificationService();
+      // final NotificationService notificationService = NotificationService();
 
       // Calculate delay before the notification time
       final notificationTime = appointment.notificationTime;
@@ -194,11 +194,11 @@ class FirebaseAppointmentRepository implements IAppointmentRepository {
         // If the delay is positive, schedule the notification
         Future.delayed(Duration(milliseconds: delay), () async {
           // Send the notification first
-          await notificationService.simulateScheduledNotification(
-            title: 'appointment_reminder'.tr,
-            body: 'appointment_reminder_body'.tr,
-            scheduledTime: appointment.notificationTime,
-          );
+          // await notificationService.simulateScheduledNotification(
+          //   title: 'appointment_reminder'.tr,
+          //   body: 'appointment_reminder_body'.tr,
+          //   scheduledTime: appointment.notificationTime,
+          // );
 
           // Save the notification once it's shown to the user
           await saveNotification(
@@ -210,11 +210,11 @@ class FirebaseAppointmentRepository implements IAppointmentRepository {
         });
       } else {
         // If the notification time is already passed, send it immediately
-        await notificationService.simulateScheduledNotification(
-          title: 'appointment_reminder'.tr,
-          body: 'appointment_reminder_body'.tr,
-          scheduledTime: appointment.notificationTime,
-        );
+        // await notificationService.simulateScheduledNotification(
+        //   title: 'appointment_reminder'.tr,
+        //   body: 'appointment_reminder_body'.tr,
+        //   scheduledTime: appointment.notificationTime,
+        // );
 
         // Save the notification immediately after sending it
         await saveNotification(
@@ -523,12 +523,12 @@ class FirebaseAppointmentRepository implements IAppointmentRepository {
           .doc(appointment.id)
           .update(updatedAppointmentData);
 
-      final NotificationService notificationService = NotificationService();
-      await notificationService.simulateScheduledNotification(
-        title: 'appointment_reminder'.tr,
-        body: 'appointment_reminder_body'.tr,
-        scheduledTime: appointment.notificationTime,
-      );
+      // final NotificationService notificationService = NotificationService();
+      // await notificationService.simulateScheduledNotification(
+      //   title: 'appointment_reminder'.tr,
+      //   body: 'appointment_reminder_body'.tr,
+      //   scheduledTime: appointment.notificationTime,
+      // );
 
       await saveNotification(
         title: 'appointment_reminder'.tr,

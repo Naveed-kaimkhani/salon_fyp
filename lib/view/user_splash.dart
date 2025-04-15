@@ -60,12 +60,6 @@ class _UserSplashScreenState extends State<UserSplashScreen> {
               child: Image.asset(AppImages.logo),
             );
 
-            SizedBox.expand(
-              child: Image.asset(
-                AppImages.customerSplashImg,
-                fit: BoxFit.fill,
-              ),
-            );
           }
         },
       ),

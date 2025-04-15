@@ -1,6 +1,5 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -46,23 +45,23 @@ void main() async {
       blockedDatesRepository: Get.find<BlockedDatesRepository>()));
   Get.put(RecurringAppointmentController());
 
-  await initializeNotifications();
+  // await initializeNotifications();
 
-  NotificationService notificationService = NotificationService();
-  notificationService.requestPermissions();
-  notificationService.listenToFirestoreNotifications();
+  // NotificationService notificationService = NotificationService();
+  // notificationService.requestPermissions();
+  // notificationService.listenToFirestoreNotifications();
   // notificationService.saveDeviceToken();
 
   // Initialize time zones for scheduled notifications
   tz.initializeTimeZones();
 
   // Set up Firebase Messaging background handler
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  final RemoteMessage? initialMessage =
-      await FirebaseMessaging.instance.getInitialMessage();
-  if (initialMessage != null) {
-    handleInitialMessage(initialMessage);
-  }
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // final RemoteMessage? initialMessage =
+  //     await FirebaseMessaging.instance.getInitialMessage();
+  // if (initialMessage != null) {
+  //   handleInitialMessage(initialMessage);
+  // }
 
   // Check if user is authenticated
   final isAuthenticated = await FirebaseAuthRepository().isUserAuthenticated();
@@ -154,39 +153,39 @@ void servicesLocator() {
 }
 
 // Initialize Flutter Local Notifications
-Future<void> initializeNotifications() async {
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
+// Future<void> initializeNotifications() async {
+//   const AndroidInitializationSettings initializationSettingsAndroid =
+//       AndroidInitializationSettings('@mipmap/ic_launcher');
 
-  final InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-  );
-}
+//   final InitializationSettings initializationSettings = InitializationSettings(
+//     android: initializationSettingsAndroid,
+//   );
+// }
 
-void handleInitialMessage(RemoteMessage message) {
-  // Handle the notification when the app is launched from a terminated state
-  if (message.notification != null) {
-    print("Notification Title: ${message.notification?.title}");
-    print("Notification Body: ${message.notification?.body}");
-  }
+// void handleInitialMessage(RemoteMessage message) {
+//   // Handle the notification when the app is launched from a terminated state
+//   if (message.notification != null) {
+//     print("Notification Title: ${message.notification?.title}");
+//     print("Notification Body: ${message.notification?.body}");
+//   }
 
-  if (message.data.containsKey('route')) {
-    // Navigate to the specific route
-    final String route = message.data['route'];
-    Get.toNamed(route);
-  }
-}
+//   if (message.data.containsKey('route')) {
+//     // Navigate to the specific route
+//     final String route = message.data['route'];
+//     Get.toNamed(route);
+//   }
+// }
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase
-      .initializeApp(); // Always initialize Firebase in the background handler
-  if (message.notification != null) {
-    print("Background Notification: ${message.notification?.title}");
-    print("Background Notification Body: ${message.notification?.body}");
-  }
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   await Firebase
+//       .initializeApp(); // Always initialize Firebase in the background handler
+//   if (message.notification != null) {
+//     print("Background Notification: ${message.notification?.title}");
+//     print("Background Notification Body: ${message.notification?.body}");
+//   }
 
-  if (message.data.containsKey('route')) {
-    final String route = message.data['route'];
-    Get.toNamed(route); // Example of navigating in the background
-  }
-}
+//   if (message.data.containsKey('route')) {
+//     final String route = message.data['route'];
+//     Get.toNamed(route); // Example of navigating in the background
+//   }
+// }
