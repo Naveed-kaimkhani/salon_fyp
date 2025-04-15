@@ -41,7 +41,9 @@ class CustomDrawer extends StatelessWidget {
               ),
               child: Center(
                 child: LabelText(
-                  text: _getInitials(user?.displayName ?? "Salon at Door Step"),
+                  // text: _getInitials(user?.displayName ?? "Salon Door"),
+                  text: "SD",
+
                   fontSize: AppFontSize.large,
                   weight: FontWeight.w700,
                 ),
@@ -123,7 +125,8 @@ class CustomDrawer extends StatelessWidget {
     await FirebaseAuth.instance.signOut();
     // Clear user session or token
     // Navigate to login screen
-    Get.offAllNamed(RouteName.splashScreen);
+    Get.offAllNamed(RouteName.ownerSplash);
+
   }
 
   String _getInitials(String name) {

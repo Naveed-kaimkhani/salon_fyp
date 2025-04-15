@@ -42,7 +42,8 @@ class CustomGradientButton extends StatelessWidget {
                       end: Alignment.bottomRight,
                     )
                   : null,
-              color: AppColors.lightGrey,
+              // color: AppColors.lightGrey,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(
                 color: AppColors.purple,

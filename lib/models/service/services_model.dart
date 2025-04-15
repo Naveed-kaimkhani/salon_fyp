@@ -7,7 +7,11 @@ part 'services_model.g.dart';
 class ServicesModel with _$ServicesModel {
   const factory ServicesModel({
     required String uid, // Unique identifier for the service
+
+    required String salon_id, // Unique identifier for the service
     required String name,
+
+    required String bussinessName, // Unique identifier for the service
     required String imageUrl, // URL of the uploaded image
     required String duration, // "30 minutes", "45 minutes", etc.
     required String gender, // "Male", "Female", "Both"

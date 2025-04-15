@@ -1,6 +1,6 @@
-// import 'dart:nativewrappers/_internal/vm/lib/developer.dart';
+import 'dart:developer';
 
-import 'package:device_preview/device_preview.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,13 +12,10 @@ import 'package:hair_salon/localization/translation_service.dart';
 import 'package:hair_salon/repository/index.dart';
 import 'package:hair_salon/repository/manage_staff_api/manage_staff_repo_impl%20.dart';
 import 'package:hair_salon/routes/app_routes.dart';
+import 'package:hair_salon/view/admin/owner_splash.dart';
 import 'package:hair_salon/view/salon_registration/salon_registration_screen.dart';
 import 'package:hair_salon/view_model/controller/edit_staff_controller.dart';
 import 'package:hair_salon/view_model/index.dart';
-// import 'package:timezone/data/latest.dart' as tz;
-
-// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-//     FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,8 +44,8 @@ void main() async {
   Get.put(RecurringAppointmentController());
 
   // Check if user is authenticated
-  final isAuthenticated = await FirebaseAuthRepository().isUserAuthenticated();
-  print(isAuthenticated.toString());
+  // final isAuthenticated = await FirebaseAuthRepository().isUserAuthenticated();
+  // print(isAuthenticated.toString());
   // Get saved locale
   final savedLocale = await TranslationService().getSavedLocale();
 
@@ -61,24 +58,23 @@ void main() async {
     //   ),
     // )
     SalonWithAdmin(
-      isAuthenticated: isAuthenticated,
+      // isAuthenticated: isAuthenticated,
       locale: savedLocale,
     ),
   );
 }
 
 class SalonWithAdmin extends StatelessWidget {
-  final bool isAuthenticated;
+  // final bool isAuthenticated;
   final Locale locale;
 
-  const SalonWithAdmin(
-      {Key? key, required this.isAuthenticated, required this.locale})
-      : super(key: key);
+  const SalonWithAdmin({Key? key, required this.locale}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    log(FirebaseAuth.instance.currentUser!.uid ?? "nh mili");
     return GetMaterialApp(
-      title: 'Salon at Door Step',
+      title: 'SalonGo',
       defaultTransition: Transition.cupertino,
       theme: ThemeData(
         fontFamily: "Inter",
@@ -107,8 +103,8 @@ class SalonWithAdmin extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      // initialRoute: RouteName.userLoginScreen,
-      // getPages: AppRoutes.getAppRoutes(),
+      initialRoute: RouteName.ownerSplash,
+      getPages: AppRoutes.getAppRoutes(),
       locale: locale,
       translations: AppTranslations(),
       home: SalonRegistrationScreen(),

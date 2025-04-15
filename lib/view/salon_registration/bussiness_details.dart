@@ -83,7 +83,7 @@ class _BussinessDetailsState extends State<BussinessDetails> {
           );
           await authService.createSalonProfile(
             salon: Salon(
-              uid: salon.uid,
+              uid: user.uid,
               businessName: salon.businessName,
               ownerName: salon.ownerName,
               phoneNumber: salon.phoneNumber,

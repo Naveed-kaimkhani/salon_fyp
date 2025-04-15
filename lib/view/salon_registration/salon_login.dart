@@ -133,7 +133,7 @@ class _LoginSalonState extends State<LoginSalon> {
                 controller: passwordController,
               ),
 
-              const Gap(50),
+              // const Gap(30),
 
               // GradientButton
               CustomGradientButton(

@@ -3,7 +3,7 @@ class AppImages {
   static String customerSplashImg = "assets/images/splash_for_customers.png";
   static String adminSplashImg = "assets/images/spalsh_for_admin.png";
 
-  static String logo = "assets/images/logo.png";
+  static String logo = "assets/images/salon_logo.png";
   static String bookingComfirmed = "assets/images/bookin_confirmed.png";
   //prfile image
   static String profilePicture = "assets/images/profile_picture.png";

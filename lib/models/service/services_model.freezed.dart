@@ -22,7 +22,11 @@ ServicesModel _$ServicesModelFromJson(Map<String, dynamic> json) {
 mixin _$ServicesModel {
   String get uid =>
       throw _privateConstructorUsedError; // Unique identifier for the service
+  String get salon_id =>
+      throw _privateConstructorUsedError; // Unique identifier for the service
   String get name => throw _privateConstructorUsedError;
+  String get bussinessName =>
+      throw _privateConstructorUsedError; // Unique identifier for the service
   String get imageUrl =>
       throw _privateConstructorUsedError; // URL of the uploaded image
   String get duration =>
@@ -49,7 +53,9 @@ abstract class $ServicesModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String uid,
+      String salon_id,
       String name,
+      String bussinessName,
       String imageUrl,
       String duration,
       String gender,
@@ -72,7 +78,9 @@ class _$ServicesModelCopyWithImpl<$Res, $Val extends ServicesModel>
   @override
   $Res call({
     Object? uid = null,
+    Object? salon_id = null,
     Object? name = null,
+    Object? bussinessName = null,
     Object? imageUrl = null,
     Object? duration = null,
     Object? gender = null,
@@ -83,9 +91,17 @@ class _$ServicesModelCopyWithImpl<$Res, $Val extends ServicesModel>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
+      salon_id: null == salon_id
+          ? _value.salon_id
+          : salon_id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      bussinessName: null == bussinessName
+          ? _value.bussinessName
+          : bussinessName // ignore: cast_nullable_to_non_nullable
               as String,
       imageUrl: null == imageUrl
           ? _value.imageUrl
@@ -117,7 +133,9 @@ abstract class _$$ServicesModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String uid,
+      String salon_id,
       String name,
+      String bussinessName,
       String imageUrl,
       String duration,
       String gender,
@@ -138,7 +156,9 @@ class __$$ServicesModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? uid = null,
+    Object? salon_id = null,
     Object? name = null,
+    Object? bussinessName = null,
     Object? imageUrl = null,
     Object? duration = null,
     Object? gender = null,
@@ -149,9 +169,17 @@ class __$$ServicesModelImplCopyWithImpl<$Res>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
+      salon_id: null == salon_id
+          ? _value.salon_id
+          : salon_id // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      bussinessName: null == bussinessName
+          ? _value.bussinessName
+          : bussinessName // ignore: cast_nullable_to_non_nullable
               as String,
       imageUrl: null == imageUrl
           ? _value.imageUrl
@@ -178,7 +206,9 @@ class __$$ServicesModelImplCopyWithImpl<$Res>
 class _$ServicesModelImpl implements _ServicesModel {
   const _$ServicesModelImpl(
       {required this.uid,
+      required this.salon_id,
       required this.name,
+      required this.bussinessName,
       required this.imageUrl,
       required this.duration,
       required this.gender,
@@ -191,7 +221,13 @@ class _$ServicesModelImpl implements _ServicesModel {
   final String uid;
 // Unique identifier for the service
   @override
+  final String salon_id;
+// Unique identifier for the service
+  @override
   final String name;
+  @override
+  final String bussinessName;
+// Unique identifier for the service
   @override
   final String imageUrl;
 // URL of the uploaded image
@@ -206,7 +242,7 @@ class _$ServicesModelImpl implements _ServicesModel {
 
   @override
   String toString() {
-    return 'ServicesModel(uid: $uid, name: $name, imageUrl: $imageUrl, duration: $duration, gender: $gender, price: $price)';
+    return 'ServicesModel(uid: $uid, salon_id: $salon_id, name: $name, bussinessName: $bussinessName, imageUrl: $imageUrl, duration: $duration, gender: $gender, price: $price)';
   }
 
   @override
@@ -215,7 +251,11 @@ class _$ServicesModelImpl implements _ServicesModel {
         (other.runtimeType == runtimeType &&
             other is _$ServicesModelImpl &&
             (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.salon_id, salon_id) ||
+                other.salon_id == salon_id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.bussinessName, bussinessName) ||
+                other.bussinessName == bussinessName) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.duration, duration) ||
@@ -226,8 +266,8 @@ class _$ServicesModelImpl implements _ServicesModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, uid, name, imageUrl, duration, gender, price);
+  int get hashCode => Object.hash(runtimeType, uid, salon_id, name,
+      bussinessName, imageUrl, duration, gender, price);
 
   /// Create a copy of ServicesModel
   /// with the given fields replaced by the non-null parameter values.
@@ -248,7 +288,9 @@ class _$ServicesModelImpl implements _ServicesModel {
 abstract class _ServicesModel implements ServicesModel {
   const factory _ServicesModel(
       {required final String uid,
+      required final String salon_id,
       required final String name,
+      required final String bussinessName,
       required final String imageUrl,
       required final String duration,
       required final String gender,
@@ -260,7 +302,11 @@ abstract class _ServicesModel implements ServicesModel {
   @override
   String get uid; // Unique identifier for the service
   @override
+  String get salon_id; // Unique identifier for the service
+  @override
   String get name;
+  @override
+  String get bussinessName; // Unique identifier for the service
   @override
   String get imageUrl; // URL of the uploaded image
   @override

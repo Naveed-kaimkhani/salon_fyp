@@ -32,6 +32,7 @@ class DeleteAccountDialog extends StatelessWidget {
             CircleAvatar(
               radius: 30,
               backgroundColor: AppColors.lightGrey.withOpacity(0.4),
+              // backgroundColor: Colors.white,
               child: const Icon(
                 Icons.warning,
                 color: AppColors.purple,

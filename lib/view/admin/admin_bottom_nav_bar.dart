@@ -16,7 +16,7 @@ class AdminBottomNavBar extends StatelessWidget {
     AdminHomeScreen(),
     ManageServicesScreen(),
     const StaffManagementScreen(),
-    WorkHoursScreen(),
+    // WorkHoursScreen(),
     // BlockDatesScreen()
   ];
 
@@ -48,11 +48,11 @@ class AdminBottomNavBar extends StatelessWidget {
               activeIcon: SvgPicture.asset(AppSvgIcons.userGroupFilled),
               label: 'manage_staff'.tr,
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppSvgIcons.colockOutlined),
-              activeIcon: SvgPicture.asset(AppSvgIcons.clockFilled),
-              label: 'work_hours'.tr,
-            ),
+            // BottomNavigationBarItem(
+            //   icon: SvgPicture.asset(AppSvgIcons.colockOutlined),
+            //   activeIcon: SvgPicture.asset(AppSvgIcons.clockFilled),
+            //   label: 'work_hours'.tr,
+            // ),
           ],
         ),
       ),
