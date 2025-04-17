@@ -93,18 +93,7 @@ class UserLogInScreen extends StatelessWidget {
                   controller: passwordController,
                   obscureText: true,
                 ),
-                // Align(
-                //   alignment: Alignment.topRight,
-                //   child: TextButton(
-                //     onPressed: () {
-                //       Get.toNamed(RouteName.adminLoginScreen);
-                //     },
-                //     child: Text(
-                //       "login_as_owner".tr,
-                //       style: const TextStyle(color: AppColors.purple),
-                //     ),
-                //   ),
-                // ),
+               
                 const Gap(20),
                 Obx(() {
                   return CustomGradientButton(

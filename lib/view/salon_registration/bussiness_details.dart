@@ -29,7 +29,7 @@ class _BussinessDetailsState extends State<BussinessDetails> {
  final StaffServicesRepository _staffServices =
       Get.find<StaffServicesRepository>();
   var isCreatingUser = false.obs;
-  // Salon salon = Get.arguments;
+  Salon salon = Get.arguments;
 
 
   Uint8List? businessLicenseImage;
@@ -85,24 +85,13 @@ try {
           documentType: 'id_card',
         );
       await authService.createSalonProfile(
-        // salon: Salon(
-        //   // uid: salon.uid,
-        //   businessName: salon.businessName,
-        //   ownerName: salon.ownerName,
-        //   phoneNumber: salon.phoneNumber,
-        //   email: salon.email,
-        //   businessAddress: businessAdressController.text,
-        //   operatingHours: operatingHoursController.text,
-        //   businessLicenseUrl: businessLicenseUrl, // Handle upload logic
-        //   idProofUrl: idCardUrl, // Handle upload logic
-        //   createdAt: DateTime.now(),
-        // ),
+        
         salon: Salon(
-          // uid: salon.uid,
-          businessName: "salon.businessName",
-          ownerName: "salon.ownerName",
-          phoneNumber: "salon.phoneNumber",
-          email: "salon.email",
+          uid: user.uid,
+          businessName:salon.businessName,
+          ownerName: salon.ownerName,
+          phoneNumber: salon.phoneNumber,
+          email: salon.email,
           businessAddress: businessAdressController.text,
           operatingHours: operatingHoursController.text,
           businessLicenseUrl: businessLicenseUrl, // Handle upload logic

@@ -4,7 +4,9 @@ import 'package:hair_salon/repository/auth_api/auth_api.dart';
 import 'package:hair_salon/view/admin/admin.dart';
 import 'package:hair_salon/view/admin/admin_splash_screen.dart';
 import 'package:hair_salon/view/admin/image_management_screen.dart';
+import 'package:hair_salon/view/admin/owner_splash.dart';
 import 'package:hair_salon/view/edit_appointment_screen.dart';
+import 'package:hair_salon/view/salon_registration/salon_login.dart';
 import 'package:hair_salon/view/salon_registration/salon_registration_screen.dart';
 import 'package:hair_salon/view/user_signin_screen.dart';
 import 'package:hair_salon/view/user_splash.dart';
@@ -18,10 +20,19 @@ class AppRoutes {
             name: RouteName.splashScreen,
             page: () => const SplashScreen(),
             transition: Transition.cupertino),
+        GetPage(
+            name: RouteName.loginSalon,
+            page: () => const LoginSalon(),
+            transition: Transition.cupertino),
 
         GetPage(
           name: RouteName.appointmentScreen,
           page: () => AppointmentScreen(),
+        ),
+
+        GetPage(
+          name: RouteName.ownerSplash,
+          page: () => OwnerSplash(),
         ),
         GetPage(
           name: RouteName.manageServicesScreen,
