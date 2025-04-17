@@ -1,0 +1,2 @@
+/Users/naveedkk/Desktop/user module code for salon fyp/salon_fyp/android/app/.cxx/RelWithDebInfo/71364q4f/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/naveedkk/Desktop/user module code for salon fyp/salon_fyp/android/app/.cxx/RelWithDebInfo/71364q4f/arm64-v8a/CMakeFiles/rebuild_cache.dir
