@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hair_salon/constants/routes_names.dart';
 import 'package:hair_salon/models/staff/staff_model.dart';
 import 'package:hair_salon/repository/manage_staff_api/manage_staff_repo.dart';
 
@@ -104,6 +105,8 @@ class StaffController extends GetxController {
       final salonId = await currentUser?.uid;
 
       if (salonId == null) {
+        
+      Get.offAllNamed(RouteName.loginSalon);
         throw Exception("No user logged in");
       }
 
@@ -117,10 +120,10 @@ class StaffController extends GetxController {
    
       staffList.value = filteredStaffList;
     } catch (e) {
-      Get.snackbar(
-        'error'.tr,
-        'failed_to_fetch_staff'.trParams({'error': e.toString()}),
-      );
+      // Get.snackbar(
+      //   'error'.tr,
+      //   'failed_to_fetch_staff'.trParams({'error': e.toString()}),
+      // );
     } finally {
       isLoading.value = false;
     }
