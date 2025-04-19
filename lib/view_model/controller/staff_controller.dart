@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hair_salon/models/salon/salon_model.dart';
 import 'package:hair_salon/models/staff/staff_model.dart';
 import 'package:hair_salon/repository/manage_staff_api/manage_staff_repo.dart';
 
@@ -12,6 +13,7 @@ class StaffController extends GetxController {
   var isLoading = true.obs;
   final nameController = TextEditingController();
   RxList<String> assignedServices = <String>[].obs;
+  var salonList = <Salon>[].obs;
 
   final startTime = ''.obs; // Observable string for start time
   final endTime = ''.obs; // Observable string for end time
@@ -34,6 +36,21 @@ class StaffController extends GetxController {
     super.onInit();
     // Fetch staff data when the controller is initialized
     fetchStaffData();
+    fetchSalonList();
+  }
+
+  Future<void> fetchSalonList() async {
+    try {
+      isLoading.value = true;
+      final salons = await staffServices
+          .fetchSalonList(); // You need to define this in your repo
+      salonList.assignAll(salons);
+    } catch (e) {
+      Get.snackbar('error'.tr,
+          'failed_to_fetch_salons'.trParams({'error': e.toString()}));
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   Future<void> updateServices({

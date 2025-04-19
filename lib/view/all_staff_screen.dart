@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hair_salon/components/components.dart';
 import 'package:hair_salon/constants/routes_names.dart';
+import 'package:hair_salon/models/salon/salon_model.dart';
 import 'package:hair_salon/view_model/controller/staff_controller.dart';
 
 class AllStaffScreen extends StatelessWidget {
@@ -42,26 +43,34 @@ class AllStaffScreen extends StatelessWidget {
         return Center(child: Text('no_specialists_available'.tr));
       } else {
         return ListView.builder(
-          itemCount: staffProvider.staffList.length,
-          itemBuilder: (context, index) {
-            final staff = staffProvider.staffList[index];
-            return SpecialistCardComponent(
-              imagePath: staff.photoURL,
-              name: staff.displayName,
-              startTime: staff.startTime,
-              endTime: staff.endTime,
-              specialty: staff.role,
-              listOfDays: staff.days,
-              listOfServices: staff.listOfServices,
-              buttonOnTap: () {
-                Get.toNamed(
-                  RouteName.bookAppointmentScreen,
-                  arguments: staff,
-                );
-              },
-            );
-          },
+  itemCount: staffProvider.staffList.length,
+  itemBuilder: (context, index) {
+    final staff = staffProvider.staffList[index];
+
+    // Match salonId with salonList to get the salon name
+    final matchingSalon = staffProvider.salonList.firstWhere(
+      (salon) => salon.uid == staff.salonId,
+      // orElse: () => Salon(id: '', name: 'Unknown Salon'), // Provide a fallback
+    );
+
+    return SpecialistCardComponent(
+      imagePath: staff.photoURL,
+      name: staff.displayName,
+      startTime: staff.startTime,
+      endTime: staff.endTime,
+      specialty: staff.role,
+      listOfDays: staff.days,
+      listOfServices: staff.listOfServices,
+      salonName: matchingSalon.businessName??"", // 👈 Pass the salon name here
+      buttonOnTap: () {
+        Get.toNamed(
+          RouteName.bookAppointmentScreen,
+          arguments: staff,
         );
+      },
+    );
+  },
+);
       }
     });
   }

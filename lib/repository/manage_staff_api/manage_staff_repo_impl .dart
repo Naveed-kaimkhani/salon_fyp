@@ -1,8 +1,9 @@
+import 'dart:developer';
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:hair_salon/models/salon/salon_model.dart';
 import 'package:hair_salon/models/staff/staff_model.dart';
 import 'package:hair_salon/repository/manage_staff_api/manage_staff_repo.dart';
 
@@ -21,6 +22,27 @@ class StaffServicesRepositoryImpl extends StaffServicesRepository {
     } catch (e) {
       Get.snackbar('error'.tr,
           'error_fetching_staff_list'.trParams({'error': e.toString()}));
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Salon>> fetchSalonList() async {
+    try {
+      final QuerySnapshot snapshot =
+          await _firestore.collection('salons').get();
+
+      return snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        return Salon.fromJson({
+          ...data,
+          'uid': doc.id,
+        });
+      }).toList();
+    } catch (e) {
+      log(e.toString());
+      Get.snackbar('error'.tr,
+          'error_fetching_salon_list'.trParams({'error': e.toString()}));
       rethrow;
     }
   }
@@ -77,28 +99,27 @@ class StaffServicesRepositoryImpl extends StaffServicesRepository {
         .getDownloadURL();
   }
 
+  Future<String> uploadSalonDocs({
+    required Uint8List? imageFile,
+    required String uid,
+    required String documentType, // For example 'idCard' or 'license'
+  }) async {
+    try {
+      // Create the folder structure: salons/{uid}/{documentType}
+      final storageRef =
+          FirebaseStorage.instance.ref().child('salons/$uid/$documentType');
 
+      // Upload the file to Firebase Storage
+      await storageRef.putData(imageFile!);
 
-Future<String> uploadSalonDocs({
-  required Uint8List? imageFile,
-  required String uid,
-  required String documentType, // For example 'idCard' or 'license'
-}) async {
-  try {
-    // Create the folder structure: salons/{uid}/{documentType}
-    final storageRef = FirebaseStorage.instance.ref().child('salons/$uid/$documentType');
+      // Get the download URL of the uploaded image
+      String downloadUrl = await storageRef.getDownloadURL();
 
-    // Upload the file to Firebase Storage
-    await storageRef.putData(imageFile!);
-
-    // Get the download URL of the uploaded image
-    String downloadUrl = await storageRef.getDownloadURL();
-
-    return downloadUrl;
-  } catch (e) {
-    throw Exception("Failed to upload document: $e");
+      return downloadUrl;
+    } catch (e) {
+      throw Exception("Failed to upload document: $e");
+    }
   }
-}
 
   @override
   Future<void> updateStaffMember(

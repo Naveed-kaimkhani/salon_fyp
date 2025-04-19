@@ -107,7 +107,7 @@ try {
           operatingHours: operatingHoursController.text,
           businessLicenseUrl: businessLicenseUrl, // Handle upload logic
           idProofUrl: idCardUrl, // Handle upload logic
-          createdAt: DateTime.now(),
+          // createdAt: DateTime.now(),
         ),
       );
       

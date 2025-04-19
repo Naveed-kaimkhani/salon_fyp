@@ -8,7 +8,6 @@ import 'package:hair_salon/constants/constants.dart';
 import 'package:hair_salon/models/staff/staff_model.dart';
 import 'package:hair_salon/repository/auth_api/firebase_auth_repository.dart';
 import 'package:hair_salon/view_model/controller/controller.dart';
-import 'package:shimmer/shimmer.dart';
 
 class UserHomeScreen extends StatelessWidget {
   UserHomeScreen({super.key});
@@ -183,7 +182,7 @@ class UserHomeScreen extends StatelessWidget {
               text: "Book Now",
               onTap: () {
                 // log("on tap");
-                Get.toNamed(RouteName.bookAppointmentScreen);
+                // Get.toNamed(RouteName.bookAppointmentScreen);
               },
               isLoading: false.obs,
             ),
@@ -224,8 +223,17 @@ class UserHomeScreen extends StatelessWidget {
   }
 
   Widget _buildSpecialistList(List<StaffModel> staffList) {
+        final StaffController staffProvider = Get.find<StaffController>();
+
     return Column(
       children: staffList.map((staff) {
+        // Find salon name based on staff.salonId
+        final matchingSalon = staffProvider.salonList.firstWhereOrNull(
+          (salon) => salon.uid == staff.salonId,
+        );
+
+        final salonName = matchingSalon?.businessName ?? 'Unknown Salon';
+
         return SpecialistCardComponent(
           imagePath: staff.photoURL,
           name: staff.displayName,
@@ -234,11 +242,11 @@ class UserHomeScreen extends StatelessWidget {
           endTime: staff.endTime,
           listOfDays: staff.days,
           listOfServices: staff.listOfServices,
+          salonName: salonName, // <-- Pass the salon name here
           buttonOnTap: () {
             Get.toNamed(
               RouteName.bookAppointmentScreen,
-              arguments:
-                  staff, // Passing the selected specialist to the next screen
+              arguments: staff,
             );
           },
         );

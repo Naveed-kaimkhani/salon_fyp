@@ -58,6 +58,7 @@ class AdminHomeScreen extends StatelessWidget {
                   imagePath: staff.photoURL,
                   name: staff.displayName,
                   specialty: staff.role,
+                  salonName: "",
                   startTime: staff.startTime,
                   endTime: staff.endTime,
                   listOfDays: staff.days,

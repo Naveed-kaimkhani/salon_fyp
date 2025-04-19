@@ -1,11 +1,13 @@
 
 import 'dart:typed_data';
+import 'package:hair_salon/models/salon/salon_model.dart';
 import 'package:hair_salon/models/staff/staff_model.dart';
 
 abstract class StaffServicesRepository {
   Future<List<StaffModel>> fetchStaffList();
   Future<StaffModel> addStaffMember(StaffModel staff);
   Future<String> uploadProfileImage({required Uint8List? imageFile, required String uid}) ;
+  Future<List<Salon>> fetchSalonList();
   
   Future<String> uploadSalonDocs({required Uint8List? imageFile, required String uid,
   required String documentType,}) ;

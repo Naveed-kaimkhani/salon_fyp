@@ -13,11 +13,12 @@ class SpecialistCardComponent extends StatelessWidget {
   final String endTime;
 
   final String startTime;
+
+  final String salonName;
   final bool isShowButton;
   final VoidCallback? ontap;
   final VoidCallback? buttonOnTap;
   final bool isDetailsButton;
-
   final List<String> listOfDays;
   final List<String> listOfServices;
 
@@ -29,72 +30,13 @@ class SpecialistCardComponent extends StatelessWidget {
     this.isShowButton = true,
     this.ontap,
     this.buttonOnTap,
+    required this.salonName,
     this.isDetailsButton = false,
     required this.listOfDays,
     required this.listOfServices,
     required this.endTime,
     required this.startTime,
   });
-
-  // bool isAvailable() {
-  //   // Check if days or services list is empty
-  //   if (listOfDays.isEmpty || listOfServices.isEmpty) {
-  //     return false;
-  //   }
-
-  //   // Check if start or end time is empty
-  //   if (startTime.isEmpty || endTime.isEmpty) {
-  //     return false;
-  //   }
-
-  //   try {
-  //     final now = DateTime.now();
-
-  //     // Extract hours and minutes from startTime and endTime
-  //     final startParts =
-  //         startTime.split(' '); // Split "1:25 PM" into ["1:25", "PM"]
-  //     final endParts = endTime.split(' ');
-
-  //     final startHourMinute =
-  //         startParts[0].split(':'); // Split "1:25" into ["1", "25"]
-  //     final endHourMinute = endParts[0].split(':');
-
-  //     int startHour = int.parse(startHourMinute[0]);
-  //     final int startMinute = int.parse(startHourMinute[1]);
-  //     int endHour = int.parse(endHourMinute[0]);
-  //     final int endMinute = int.parse(endHourMinute[1]);
-
-  //     // Adjust hours for PM times
-  //     if (startParts[1] == 'PM' && startHour != 12) {
-  //       startHour += 12;
-  //     } else if (startParts[1] == 'AM' && startHour == 12) {
-  //       startHour = 0;
-  //     }
-
-  //     if (endParts[1] == 'PM' && endHour != 12) {
-  //       endHour += 12;
-  //     } else if (endParts[1] == 'AM' && endHour == 12) {
-  //       endHour = 0;
-  //     }
-
-  //     // Combine parsed times with today's date
-  //     final startTimeToday =
-  //         DateTime(now.year, now.month, now.day, startHour, startMinute);
-  //     var endTimeToday =
-  //         DateTime(now.year, now.month, now.day, endHour, endMinute);
-
-  //     // If endTime is earlier than startTime, it means it is after midnight (next day)
-  //     if (endTimeToday.isBefore(startTimeToday)) {
-  //       endTimeToday = endTimeToday.add(const Duration(days: 1));
-  //     }
-
-  //     // Check if the current time is within the range
-  //     return now.isAfter(startTimeToday) && now.isBefore(endTimeToday);
-  //   } catch (e) {
-  //     debugPrint("Error parsing time: $e");
-  //     return false; // Default to unavailable if there's an error
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +75,12 @@ class SpecialistCardComponent extends StatelessWidget {
                       weight: FontWeight.w400,
                       textColor: AppColors.mediumGrey,
                     ),
+                    // LabelText(
+                    //   text: "naveed salon",
+                    //   fontSize: 5,
+                    //   weight: FontWeight.w400,
+                    //   textColor: AppColors.mediumGrey,
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -145,27 +93,12 @@ class SpecialistCardComponent extends StatelessWidget {
                                     width: 8,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      // color: listOfDays.isEmpty || listOfServices.isEmpty
-                                      // color: isAvailable()
-                                      //     ? AppColors.green
-                                      //     : Colors.red,
                                       color: AppColors.green,
                                     ),
                                   ),
-                                  // isAvailable()
-                                  //     ? LabelText(
-                                  //         text: ' ' + 'available'.tr,
-                                  //         fontSize: AppFontSize.xxsmall,
-                                  //         weight: FontWeight.w500,
-                                  //       )
-                                  //     : LabelText(
-                                  //         text: ' ' + "un_available".tr,
-                                  //         fontSize: AppFontSize.xxsmall,
-                                  //         weight: FontWeight.w500,
-                                  //       ),
                                   const Gap(5),
                                   LabelText(
-                                    text: ' ' + "available".tr,
+                                    text: salonName,
                                     fontSize: AppFontSize.xxsmall,
                                     weight: FontWeight.w500,
                                   ),
@@ -178,32 +111,13 @@ class SpecialistCardComponent extends StatelessWidget {
                                   minWidth: 90,
                                   maxWidth: 100,
                                 ),
-                                child:
-                                    // listOfDays.isEmpty || listOfServices.isEmpty
-                                    // isAvailable()
-                                    //     ? CustomGradientButton(
-                                    //         height: 36,
-                                    //         text: isDetailsButton
-                                    //             ? "details".tr
-                                    //             : "book_now".tr,
-                                    //         fontSize: AppFontSize.xsmall,
-                                    //         onTap: buttonOnTap,
-                                    //         isLoading: false.obs,
-                                    //       )
-                                    //     : CustomGradientButton(
-                                    //         height: 36,
-                                    //         text: "un_available".tr,
-                                    //         fontSize: AppFontSize.xsmall,
-                                    //         onTap: () {},
-                                    //         isLoading: false.obs,
-                                    //       )
-                                    CustomGradientButton(
-                                      height: 36,
-                                      text: "book_now".tr,
-                                      fontSize: AppFontSize.xsmall,
-                                      onTap: buttonOnTap,
-                                      isLoading: false.obs,
-                                    ))
+                                child: CustomGradientButton(
+                                  height: 36,
+                                  text: "book_now".tr,
+                                  fontSize: AppFontSize.xsmall,
+                                  onTap: buttonOnTap,
+                                  isLoading: false.obs,
+                                ))
                             : const SizedBox.shrink(),
                       ],
                     ),

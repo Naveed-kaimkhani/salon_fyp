@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Salon {
   final String? uid;
@@ -12,7 +11,7 @@ class Salon {
   final String? idProofUrl;
   final String? password;
   final String? confirmPassword;
-  final DateTime? createdAt ;
+  // final DateTime? createdAt ;
   Salon({
      this.uid,
     required this.businessName,
@@ -25,7 +24,7 @@ class Salon {
      this.operatingHours,
      this.businessLicenseUrl,
      this.idProofUrl,
-     this.createdAt,
+    //  this.createdAt,
   });
 
   factory Salon.fromJson(Map<String, dynamic> json) {
@@ -39,7 +38,7 @@ class Salon {
       operatingHours: json['operatingHours'],
       businessLicenseUrl: json['businessLicenseUrl'],
       idProofUrl: json['idProofUrl'],
-      createdAt: json['createdAt'],
+      // createdAt: json['createdAt'],
     );
   }
 
@@ -55,7 +54,7 @@ class Salon {
       'operatingHours': operatingHours,
       'businessLicenseUrl': businessLicenseUrl,
       'idProofUrl': idProofUrl,
-      'createdAt': createdAt,
+      // 'createdAt': createdAt,
     };
   }
 }
