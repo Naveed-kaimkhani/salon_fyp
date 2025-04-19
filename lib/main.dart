@@ -91,7 +91,7 @@ class SalonWithAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Shlomi Stav',
+      title: 'SalonGo',
       defaultTransition: Transition.cupertino,
       theme: ThemeData(
         fontFamily: "Inter",

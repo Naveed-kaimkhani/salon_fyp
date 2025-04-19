@@ -41,7 +41,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               child: Center(
                 child: LabelText(
-                  text: _getInitials(user?.displayName ?? "Shlomi Stav"),
+                  text: _getInitials(user?.displayName ?? "Salon Go"),
                   fontSize: AppFontSize.large,
                   weight: FontWeight.w700,
                 ),
