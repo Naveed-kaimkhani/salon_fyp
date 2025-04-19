@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hair_salon/constants/app_colors.dart';
+import 'package:hair_salon/constants/constants.dart';
+
 class PendingApprovalScreen extends StatefulWidget {
   const PendingApprovalScreen({Key? key}) : super(key: key);
 
@@ -35,15 +39,41 @@ class _PendingApprovalScreenState extends State<PendingApprovalScreen>
 
   Future<void> _refreshStatus() async {
     setState(() => _isRefreshing = true);
-    // Simulate API call
-    await Future.delayed(const Duration(seconds: 2));
-    setState(() => _isRefreshing = false);
+
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        Get.snackbar('Error', 'User not logged in');
+        return;
+      }
+
+      final snapshot = await FirebaseFirestore.instance
+          .collection('salons')
+          .doc(user.uid)
+          .get();
+
+      final isApproved =
+          snapshot.exists ? (snapshot['isApproved'] ?? false) : false;
+
+      if (isApproved) {
+        // Navigate to home screen or approved dashboard
+        Get.offAllNamed(
+            RouteName.adminBottomNavBar); // Replace with your actual home route
+      } else {
+        Get.snackbar('Still Pending', 'Your account is still under review');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to check approval status: $e');
+    } finally {
+      setState(() => _isRefreshing = false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -139,7 +169,8 @@ class _PendingApprovalScreenState extends State<PendingApprovalScreen>
                     onPressed: _isRefreshing ? null : _refreshStatus,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.purple,
-                      padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
+                      padding:
+                          EdgeInsets.symmetric(vertical: size.height * 0.02),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),

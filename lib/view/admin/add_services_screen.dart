@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -96,6 +97,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
       // Create a new ServicesModel
       ServicesModel serviceModel = ServicesModel(
         name: serviceName,
+        salonId: FirebaseAuth.instance.currentUser!.uid,
         duration: '$serviceDuration minutes',
         gender: serviceFor ?? "",
         price: servicePrice,

@@ -101,7 +101,7 @@ try {
       );
       
         isCreatingUser = false.obs;
-      Get.offAllNamed(RouteName.userHomeScreen);
+      Get.offAllNamed(RouteName.pendingApprovalScreen);
     } catch (error) {
       
       isCreatingUser = false.obs;

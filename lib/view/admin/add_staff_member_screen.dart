@@ -50,10 +50,10 @@ class _AddStaffMemberScreenState extends State<AddStaffMemberScreen> {
         return;
       }
 
-      if (!_isValidTimeRange()) {
-        Get.snackbar("error".tr, "end_time_after_start_time".tr);
-        return;
-      }
+      // if (!_isValidTimeRange()) {
+      //   Get.snackbar("error".tr, "end_time_after_start_time".tr);
+      //   return;
+      // }
 
       try {
         loadingController.isLoading.value = true; // Start loading
@@ -67,6 +67,7 @@ class _AddStaffMemberScreenState extends State<AddStaffMemberScreen> {
         // Add staff member
         await controller.addStaffMember();
         loadingController.isLoading.value = false; // Stop loading
+        Get.back();
       } catch (e) {
         loadingController.isLoading.value = false;
         Get.snackbar("error".tr, "something_went_wrong".tr);

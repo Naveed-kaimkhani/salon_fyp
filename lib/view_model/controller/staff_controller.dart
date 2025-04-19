@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hair_salon/models/staff/staff_model.dart';
@@ -78,14 +81,46 @@ class StaffController extends GetxController {
   }
 
   // Fetch staff data using the repository
+  // Future<void> fetchStaffData() async {
+  //   try {
+  //     isLoading.value = true;
+  //     final fetchedStaffList = await staffServices.fetchStaffList();
+  //     staffList.value = fetchedStaffList;
+  //   } catch (e) {
+  //     Get.snackbar('error'.tr,
+  //         'failed_to_fetch_staff'.trParams({'error': e.toString()}));
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
+
   Future<void> fetchStaffData() async {
     try {
       isLoading.value = true;
+
+      // Get the current logged-in user's UID
+      // final currentUserId = FirebaseAuth.instance.currentUser?.uid;
+      final currentUser = await FirebaseAuth.instance.currentUser;
+      final salonId = await currentUser?.uid;
+
+      if (salonId == null) {
+        throw Exception("No user logged in");
+      }
+
+      // Fetch all staff members
       final fetchedStaffList = await staffServices.fetchStaffList();
-      staffList.value = fetchedStaffList;
+      log(fetchedStaffList.toString());
+      log(fetchedStaffList.length.toString());
+      
+      final filteredStaffList =
+          fetchedStaffList.where((staff) => staff.salonId == salonId).toList();
+   
+      staffList.value = filteredStaffList;
     } catch (e) {
-      Get.snackbar('error'.tr,
-          'failed_to_fetch_staff'.trParams({'error': e.toString()}));
+      Get.snackbar(
+        'error'.tr,
+        'failed_to_fetch_staff'.trParams({'error': e.toString()}),
+      );
     } finally {
       isLoading.value = false;
     }
@@ -103,15 +138,19 @@ class StaffController extends GetxController {
       displayName: name,
       role: role,
       days: days,
+      salonId: FirebaseAuth.instance.currentUser!.uid,
       startTime: startTimeValue,
       endTime: endTimeValue,
       photoURL: photo.value,
+     
       listOfServices: assignedServices,
     );
 
     try {
       final uploadStaff = await staffServices.addStaffMember(staff);
       staffList.add(uploadStaff);
+      Get.snackbar("Success", "Staff member added");
+      // Get.back();
     } catch (e) {
       Get.snackbar('error'.tr,
           'failed_to_add_staff_member'.trParams({'error': e.toString()}));
@@ -136,50 +175,11 @@ class StaffController extends GetxController {
     } else {
       updatedFields['days'] = originalStaff.days;
     }
-    // if (!selectedDays.toSet().containsAll(originalStaff.days) ||
-    //     !originalStaff.days.toSet().containsAll(selectedDays)) {
-    //   updatedFields['days'] = selectedDays;
-    // }
-
-    // if (nameController.text != originalStaff.displayName) {
-    //   updatedFields['displayName'] = nameController.text;
-    // }
-    // if (selectedRole.value != originalStaff.role) {
-    //   updatedFields['role'] = selectedRole.value;
-    // }
-
-    // if (!selectedDays.toSet().containsAll(originalStaff.days) ||
-    //     !originalStaff.days.toSet().containsAll(selectedDays)) {
-    //   updatedFields['days'] = selectedDays;
-    // }
-    // if (startTime.value != originalStaff.startTime) {
-    //   updatedFields['startTime'] = startTime.value;
-    // }
-    // if (endTime.value != originalStaff.endTime) {
-    //   updatedFields['endTime'] = endTime.value;
-    // }
-    // // Compare assignedServices with original listOfServices
-    // if (!ListEquality()
-    //     .equals(assignedServices, originalStaff.listOfServices)) {
-    //   updatedFields['listOfServices'] = assignedServices;
-    // }
-    // if (!ListEquality()
-    //     .equals(assignedServices, originalStaff.listOfServices)) {
-    //   updatedFields['listOfServices'] = assignedServices;
-    // }
-
     if (updatedFields.isNotEmpty) {
       isActionLoading.value = true; // Start loading for the action
       try {
         await staffServices.updateStaffMember(originalStaff.uid, updatedFields);
-        // selectedDays = <String>[].obs;
-        // selectedRole = ''.obs;
-        // startTime.value = '';
-        // endTime.value = '';
-        // photo.value = '';
-        // nameController.clear();
-        // assignedServices.clear();
-// assignedServices = <String>[].obs;
+
         await fetchStaffData();
         isActionLoading.value = false; // Start loading for the action
 

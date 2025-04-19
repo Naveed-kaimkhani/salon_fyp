@@ -16,7 +16,7 @@ class AppSvgIcons {
   static String clockFilled = "assets/icons/svg/clock_filled.svg";
 
   static String hairDryerOutlined = "assets/icons/svg/hair_dryer_outlined.svg";
-  static String hairDryerFilled = "assets/icons/svg/hair_dryer_filled.svg";
+  static String hairDryerFilled = "assets/icons/svg/hair_dryer_fille.svg";
   static String hairDryerIcon = "assets/icons/svg/hair_dryer.svg";
 
   static String userGroupOutlined = "assets/icons/svg/user-group_outlined.svg";
@@ -43,6 +43,5 @@ class AppSvgIcons {
   static String listReorderIcon = "assets/icons/svg/list_reorder.svg";
   static String menuIcon = "assets/icons/svg/menu.svg";
   static String languageIcon = "assets/icons/svg/language_icon.svg";
-
   static String settingIcon = "assets/icons/svg/setting.svg";
 }

@@ -29,7 +29,7 @@ class RouteName {
   static const String adminSplashScreen = '/adminSplashScreen';
   static const String pendingApprovalScreen = '/pendingApprovalScreen';
   static const String servicesScreen = "/servicesScreen";
-  static const String manageStaffScreen = "/manageStaffScreen";
+  static const String manageStaffScreen = "/staffManagementScreen";
   static const String workHoursScreen = "/workHoursScreen";
   static const String allAppointmentsScreen = "/allAppointmentsScreen";
   static const String bottomNavBar = "/bottomNavBar";

@@ -1,0 +1,2 @@
+/Users/naveedkk/Desktop/salon_fyp/android/app/.cxx/RelWithDebInfo/486t4y05/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/naveedkk/Desktop/salon_fyp/android/app/.cxx/RelWithDebInfo/486t4y05/armeabi-v7a/CMakeFiles/rebuild_cache.dir

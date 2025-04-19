@@ -82,7 +82,7 @@ class _LoginSalonState extends State<LoginSalon> {
       // Get.offAllNamed(RouteName.adminBottomNavBar);
     } else {
       isCreatingUser.value = false;
-      Get.snackbar('error'.tr, 'failed_to_sign_up'.tr);
+      // Get.snackbar('error'.tr, "Failed ");
     }
     // try {
     // } catch (error) {
@@ -131,6 +131,7 @@ class _LoginSalonState extends State<LoginSalon> {
                 label: "Password".tr,
                 hint: "******".tr,
                 controller: passwordController,
+                obscureText: true,
               ),
               Align(
                 alignment: Alignment.topRight,
@@ -144,7 +145,7 @@ class _LoginSalonState extends State<LoginSalon> {
                   ),
                 ),
               ),
-              const Gap(30),
+              const Gap(10),
 
               // GradientButton
               CustomGradientButton(

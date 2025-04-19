@@ -1,18 +1,66 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class ServicesModel {
+  final String uid;
+  final String name;
+  final String imageUrl;
+  final String duration;
+  final String gender;
+  final double price;
+  final String salonId;
 
-part 'services_model.freezed.dart';
-part 'services_model.g.dart';
+  ServicesModel({
+    required this.uid,
+    required this.name,
+    required this.imageUrl,
+    required this.duration,
+    required this.gender,
+    required this.price,
+    required this.salonId,
+  });
 
-@freezed
-class ServicesModel with _$ServicesModel {
-  const factory ServicesModel({
-    required String uid, // Unique identifier for the service
-    required String name,
-    required String imageUrl, // URL of the uploaded image
-    required String duration, // "30 minutes", "45 minutes", etc.
-    required String gender, // "Male", "Female", "Both"
-    required double price, // Price of the ServicesModel
-  }) = _ServicesModel;
+  // From JSON
+  factory ServicesModel.fromJson(Map<String, dynamic> json) {
+    return ServicesModel(
+      uid: json['uid'] ?? '',
+      name: json['name'] ?? '',
+      imageUrl: json['imageUrl'] ?? '',
+      duration: json['duration'] ?? '',
+      gender: json['gender'] ?? '',
+      price: (json['price'] ?? 0).toDouble(),
+      salonId: json['salonId'] ?? '',
+    );
+  }
 
-  factory ServicesModel.fromJson(Map<String, dynamic> json) => _$ServicesModelFromJson(json);
+  // To JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'uid': uid,
+      'name': name,
+      'imageUrl': imageUrl,
+      'duration': duration,
+      'gender': gender,
+      'price': price,
+      'salonId': salonId,
+    };
+  }
+
+  // CopyWith
+  ServicesModel copyWith({
+    String? uid,
+    String? name,
+    String? imageUrl,
+    String? duration,
+    String? gender,
+    double? price,
+    String? salonId,
+  }) {
+    return ServicesModel(
+      uid: uid ?? this.uid,
+      name: name ?? this.name,
+      imageUrl: imageUrl ?? this.imageUrl,
+      duration: duration ?? this.duration,
+      gender: gender ?? this.gender,
+      price: price ?? this.price,
+      salonId: salonId ?? this.salonId,
+    );
+  }
 }

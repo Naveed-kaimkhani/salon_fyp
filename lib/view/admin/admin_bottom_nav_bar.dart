@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -16,12 +19,11 @@ class AdminBottomNavBar extends StatelessWidget {
     AdminHomeScreen(),
     ManageServicesScreen(),
     const StaffManagementScreen(),
-    WorkHoursScreen(),
-    // BlockDatesScreen()
   ];
 
   @override
   Widget build(BuildContext context) {
+    log(FirebaseAuth.instance.currentUser!.uid.toString());
     return Scaffold(
       body: Obx(() => _screens[bottomNavController.selectedBottomNav.value]),
       bottomNavigationBar: Obx(
@@ -48,11 +50,11 @@ class AdminBottomNavBar extends StatelessWidget {
               activeIcon: SvgPicture.asset(AppSvgIcons.userGroupFilled),
               label: 'manage_staff'.tr,
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppSvgIcons.colockOutlined),
-              activeIcon: SvgPicture.asset(AppSvgIcons.clockFilled),
-              label: 'work_hours'.tr,
-            ),
+            // BottomNavigationBarItem(
+            //   icon: SvgPicture.asset(AppSvgIcons.colockOutlined),
+            //   activeIcon: SvgPicture.asset(AppSvgIcons.clockFilled),
+            //   label: 'work_hours'.tr,
+            // ),
           ],
         ),
       ),

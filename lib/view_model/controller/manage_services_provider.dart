@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:hair_salon/models/service/services_model.dart';
 import 'package:hair_salon/repository/services_repo/manage_service_repo.dart';
@@ -14,22 +15,50 @@ class ManageServiceProvider extends GetxController {
       : _serviceRepo = serviceRepo;
 
   // Fetch services data using the repository
+  // Future<void> fetchServicesData() async {
+  //   try {
+  //     isLoading.value = true;
+  //     final fetchedServicesList = await _serviceRepo.fetchServicesList();
+
+  //     if (fetchedServicesList.isEmpty) {
+  //     } else {}
+
+  //     serviceList.value = fetchedServicesList;
+  //   } catch (e) {
+  //     Get.snackbar('error'.tr,
+  //         'failed_to_fetch_services'.trParams({'error': e.toString()}));
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
   Future<void> fetchServicesData() async {
-    try {
-      isLoading.value = true;
-      final fetchedServicesList = await _serviceRepo.fetchServicesList();
+  try {
+    isLoading.value = true;
 
-      if (fetchedServicesList.isEmpty) {
-      } else {}
+    final fetchedServicesList = await _serviceRepo.fetchServicesList();
 
-      serviceList.value = fetchedServicesList;
-    } catch (e) {
-      Get.snackbar('error'.tr,
-          'failed_to_fetch_services'.trParams({'error': e.toString()}));
-    } finally {
-      isLoading.value = false;
+    // Get current user's UID (salon ID)
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final salonId = currentUser?.uid;
+
+    if (salonId == null) {
+      Get.snackbar('error'.tr, 'Salon ID not found.');
+      return;
     }
+
+    // Filter the services based on salonId
+    final filteredServices = fetchedServicesList
+        .where((service) => service.salonId == salonId)
+        .toList();
+
+    serviceList.value = filteredServices;
+  } catch (e) {
+    Get.snackbar('error'.tr,
+        'failed_to_fetch_services'.trParams({'error': e.toString()}));
+  } finally {
+    isLoading.value = false;
   }
+}
 
   // Add a new service using the repository
   Future<void> addService(ServicesModel service) async {

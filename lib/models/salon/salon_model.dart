@@ -12,11 +12,14 @@ class Salon {
   final String? idProofUrl;
   final String? password;
   final String? confirmPassword;
+    final bool? isApproved;
   final DateTime? createdAt ;
   Salon({
      this.uid,
     required this.businessName,
     required this.ownerName,
+
+     this.isApproved=false,
     required this.phoneNumber,
     required this.email,
      this.businessAddress,
@@ -40,6 +43,8 @@ class Salon {
       businessLicenseUrl: json['businessLicenseUrl'],
       idProofUrl: json['idProofUrl'],
       createdAt: json['createdAt'],
+
+      isApproved: json['isApproved'],
     );
   }
 
@@ -51,6 +56,7 @@ class Salon {
       'phoneNumber': phoneNumber,
       'email': email,
 
+      'isApproved': isApproved,
       'businessAddress': businessAddress,
       'operatingHours': operatingHours,
       'businessLicenseUrl': businessLicenseUrl,

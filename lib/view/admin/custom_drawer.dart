@@ -41,7 +41,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               child: Center(
                 child: LabelText(
-                  text: _getInitials(user?.displayName ?? "Salon At Your Doorstep"),
+                  text: _getInitials("S D"),
                   fontSize: AppFontSize.large,
                   weight: FontWeight.w700,
                 ),
@@ -78,26 +78,33 @@ class CustomDrawer extends StatelessWidget {
                         },
                       ),
                       drawerItemsTile(
-                        title: "image_management".tr,
-                        iconData: AppSvgIcons.albumIcon,
+                        title: "Manage Staff",
+                        iconData: AppSvgIcons.userGroupOutlined,
                         onTap: () {
-                          Get.toNamed(RouteName.imageManagementScreen);
+                          Get.toNamed(RouteName.manageStaffScreen);
                         },
                       ),
-                      drawerItemsTile(
-                        title: "notifications".tr,
-                        iconData: AppSvgIcons.notification,
-                        onTap: () {
-                          Get.toNamed(RouteName.pushNotificationScreen);
-                        },
-                      ),
-                      drawerItemsTile(
-                        title: "change_language".tr,
-                        iconData: AppSvgIcons.languageIcon,
-                        onTap: () async {
-                          await TranslationService.changeLocale();
-                        },
-                      ),
+                      // drawerItemsTile(
+                      //   title: "image_management".tr,
+                      //   iconData: AppSvgIcons.albumIcon,
+                      //   onTap: () {
+                      //     Get.toNamed(RouteName.imageManagementScreen);
+                      //   },
+                      // ),
+                      // drawerItemsTile(
+                      //   title: "notifications".tr,
+                      //   iconData: AppSvgIcons.notification,
+                      //   onTap: () {
+                      //     Get.toNamed(RouteName.pushNotificationScreen);
+                      //   },
+                      // ),
+                      // drawerItemsTile(
+                      //   title: "change_language".tr,
+                      //   iconData: AppSvgIcons.languageIcon,
+                      //   onTap: () async {
+                      //     await TranslationService.changeLocale();
+                      //   },
+                      // ),
                       drawerItemsTile(
                         title: "logout".tr,
                         iconData:
@@ -123,7 +130,7 @@ class CustomDrawer extends StatelessWidget {
     await FirebaseAuth.instance.signOut();
     // Clear user session or token
     // Navigate to login screen
-    Get.offAllNamed(RouteName.splashScreen);
+    Get.offAllNamed(RouteName.ownerSplash);
   }
 
   String _getInitials(String name) {

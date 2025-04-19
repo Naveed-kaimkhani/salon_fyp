@@ -83,17 +83,17 @@ class _SalonRegistrationScreenState extends State<SalonRegistrationScreen> {
     //   isCreatingUser = true.obs;
     // });
 
-      Salon salon = Salon(
-        phoneNumber: phoneController.text.trim(),
-        businessName: businessNameController.text.trim(),
-        ownerName: ownerNameController.text.trim(),
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-        confirmPassword: confirmPasswordController.text.trim(),
-      );
+    Salon salon = Salon(
+      phoneNumber: phoneController.text.trim(),
+      businessName: businessNameController.text.trim(),
+      ownerName: ownerNameController.text.trim(),
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+      confirmPassword: confirmPasswordController.text.trim(),
+    );
 
-      // Navigate to home screen after successful creation
-      Get.toNamed(RouteName.bussinessDetails, arguments: salon);
+    // Navigate to home screen after successful creation
+    Get.toNamed(RouteName.bussinessDetails, arguments: salon);
     // try {
     // } catch (error) {
     //   Get.snackbar('error'.tr, 'failed_to_sign_up'.tr + error.toString());
@@ -123,7 +123,7 @@ class _SalonRegistrationScreenState extends State<SalonRegistrationScreen> {
               //     width: 220,
               //   ),
               // ),
-              const Gap(50),
+              const Gap(10),
               LabelText(
                 text: "Finish Signing Up".tr,
                 textColor: AppColors.purple,
@@ -164,6 +164,7 @@ class _SalonRegistrationScreenState extends State<SalonRegistrationScreen> {
                 label: "Password".tr,
                 hint: "******".tr,
                 controller: passwordController,
+                obscureText: true,
               ),
 
               const Gap(15),
@@ -171,9 +172,10 @@ class _SalonRegistrationScreenState extends State<SalonRegistrationScreen> {
                 label: "Confirm Password".tr,
                 hint: "******".tr,
                 controller: confirmPasswordController,
+                obscureText: true,
               ),
 
-              const Gap(50),
+              const Gap(20),
 
               // GradientButton
               CustomGradientButton(

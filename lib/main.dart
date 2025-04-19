@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,6 @@ import 'package:hair_salon/repository/index.dart';
 import 'package:hair_salon/repository/manage_staff_api/manage_staff_repo_impl%20.dart';
 import 'package:hair_salon/routes/app_routes.dart';
 import 'package:hair_salon/view/admin/owner_splash.dart';
-import 'package:hair_salon/view/user_splash.dart';
 import 'package:hair_salon/view_model/controller/edit_staff_controller.dart';
 import 'package:hair_salon/view_model/index.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -97,7 +95,7 @@ class SalonWithAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Salon at your Doorstep',
+      title: 'SalonGo',
       defaultTransition: Transition.cupertino,
       theme: ThemeData(
         fontFamily: "Inter",

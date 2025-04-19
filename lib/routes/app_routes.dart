@@ -6,6 +6,7 @@ import 'package:hair_salon/view/admin/admin_splash_screen.dart';
 import 'package:hair_salon/view/admin/image_management_screen.dart';
 import 'package:hair_salon/view/admin/owner_splash.dart';
 import 'package:hair_salon/view/edit_appointment_screen.dart';
+import 'package:hair_salon/view/salon_registration/pending_approval_screen.dart';
 import 'package:hair_salon/view/salon_registration/salon_login.dart';
 import 'package:hair_salon/view/salon_registration/salon_registration_screen.dart';
 import 'package:hair_salon/view/user_signin_screen.dart';
@@ -30,9 +31,19 @@ class AppRoutes {
           page: () => AppointmentScreen(),
         ),
 
+
+        GetPage(
+          name: RouteName.pendingApprovalScreen,
+          page: () => PendingApprovalScreen(),
+        ),
+
         GetPage(
           name: RouteName.ownerSplash,
           page: () => OwnerSplash(),
+        ),
+        GetPage(
+          name: RouteName.manageStaffScreen,
+          page: () => StaffManagementScreen(),
         ),
         GetPage(
           name: RouteName.manageServicesScreen,

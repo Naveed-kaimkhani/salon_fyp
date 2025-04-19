@@ -48,7 +48,8 @@ class AssignServicesScreen extends StatelessWidget {
                 if (serviceList.isEmpty) {
                   return Center(
                     child: Text(
-                      'no_services_available'.tr,
+                      // 'no_services_available'.tr,
+                      "Please add some services first",
                       style: const TextStyle(fontSize: 16),
                     ),
                   );
