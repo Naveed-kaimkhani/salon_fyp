@@ -11,6 +11,18 @@
 			"problemMatcher": [],
 			"label": "flutter: flutter pub get",
 			"detail": ""
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"build",
+				"web"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"label": "flutter: flutter build web",
+			"detail": ""
 		}
 	]
 }

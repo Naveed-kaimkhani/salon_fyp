@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hair_salon/constants/constants.dart';
@@ -108,6 +110,7 @@ class _AccountVerificationScreenState extends State<AccountVerificationScreen> {
                             DataColumn(label: Text('Action')),
                           ],
                           rows: snapshot.data!.docs.map((doc) {
+                            log(snapshot.data.toString());
                             Salon salon = Salon.fromJson(
                                 doc.data() as Map<String, dynamic>);
                             return DataRow(cells: [
@@ -151,12 +154,11 @@ class _AccountVerificationScreenState extends State<AccountVerificationScreen> {
                               DataCell(
                                 TextButton(
                                   onPressed: () {
-                                    print(salon.idProofUrl);
                                     showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
                                         content: Image.network(
-                                          salon.idProofUrl!,
+                                          salon.businessLicenseUrl!,
                                           loadingBuilder: (context, child,
                                               loadingProgress) {
                                             if (loadingProgress == null)
