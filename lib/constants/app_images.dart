@@ -10,11 +10,11 @@ class AppImages {
 
   //home screen images
 
-  static String galleryIamge_1 = "assets/images/gallery_image_1.jpeg";
-  static String galleryIamge_2 = "assets/images/gallery_image_2.jpeg";
+  static String galleryIamge_1 = "assets/images/gallery_image_1.png";
+  static String galleryIamge_2 = "assets/images/gallery_image_2.png";
 
-  static String galleryIamge_3 = "assets/images/gallery_image_3.jpeg";
-  static String salonCoverImage = "assets/images/salon_cover_image.jpeg";
+  static String galleryIamge_3 = "assets/images/gallery_image_3.png";
+  static String salonCoverImage = "assets/images/salon_cover_image.png";
   //specialist images
   static String specialistImage_1 = "assets/images/specialist_1.png";
   static String specialistImage_2 = "assets/images/specialist_2.png";

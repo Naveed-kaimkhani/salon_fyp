@@ -23,6 +23,7 @@ class BookingAppointmentScreen extends StatefulWidget {
 class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
   final Rx<StaffModel?> selectedSpecialist =
       Rx<StaffModel?>(Get.arguments as StaffModel?);
+  final TextEditingController addressController = TextEditingController();
 
   final ScrollController scrollController = ScrollController();
 
@@ -86,7 +87,14 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
                   selectedSpecialist.value?.displayName ?? 'Unknown Specialist',
             ),
             Gap(20),
-            RecurringAppointment(),
+            // RecurringAppointment(),
+            TextField(
+              controller: addressController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "Enter your address",
+              ),
+            ),
             const Gap(20),
             CustomGradientButton(
               isLoading: isLoading,
@@ -135,6 +143,10 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
   bool _validateInputs(StaffModel? currentSpecialist) {
     if (currentSpecialist == null) {
       Get.snackbar("error".tr, "error_select_specialist".tr);
+      return false;
+    }
+    if (addressController.text.isEmpty) {
+      Get.snackbar("Error", "Enter Address");
       return false;
     }
     String dayName = DateFormat('EEEE')
@@ -224,6 +236,7 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
       date: selectedDate,
       time: selectedTime,
       stylist: specialist.displayName,
+      address: addressController.text,
       specialistUid: specialist.uid,
       userUid: FirebaseAuth.instance.currentUser!.uid,
       duration: treatmentController.selectedDuration.value,
@@ -238,8 +251,8 @@ class _BookingAppointmentScreenState extends State<BookingAppointmentScreen> {
           selectedDate, selectedTime),
       serviceImageUrl: treatmentController.selectedImageUrl.value,
       recurring: {
-        "isRecurring": recurringController.isRecurring.value,
-        "frequency": recurringController.selectedFrequency.value,
+        "isRecurring": false,
+        "frequency": "weekly",
       },
     );
 

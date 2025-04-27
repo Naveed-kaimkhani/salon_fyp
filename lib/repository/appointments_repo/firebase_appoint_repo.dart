@@ -166,6 +166,7 @@ class FirebaseAppointmentRepository implements IAppointmentRepository {
         'treatment': appointment.appointmentFor,
         'duration': appointment.duration,
         'isCancelled': appointment.isCancelled,
+        'address': appointment.address,
         'charges': appointment.charges.toDouble(),
         'notificationTime': appointment.notificationTime.toIso8601String(),
         'createdAt': Timestamp.now(),

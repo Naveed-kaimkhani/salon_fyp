@@ -10,6 +10,8 @@ class Appointment {
   final String duration;
   final double charges;
   final String appointmentFor;
+
+   String address;
   final bool isUpComing;
   static const bool isRemindMe = false;
   final bool isWaiting;
@@ -31,6 +33,7 @@ class Appointment {
     required this.userUid,
     required this.duration,
     required this.appointmentFor,
+     this.address='',
     this.isUpComing = false,
     this.isWaiting = false,
     this.isCancelled = false,
@@ -56,6 +59,8 @@ class Appointment {
       'treatment': appointmentFor,
       'isUpComing': isUpComing,
       'isCancelled': isCancelled,
+
+      'address': address,
       'isRemindMe': isRemindMe,
       'isWaiting': isWaiting,
       'gender': gender, // Added field
@@ -102,6 +107,8 @@ class Appointment {
       isWaiting: data['isWaiting'] ?? false,
       isCancelled: data['isCancelled'] ?? false,
       appointmentFor: parseString(data['treatment']),
+
+      address: parseString(data['address']),
       id: parseString(data['id']),
       gender: parseString(data['gender']), // Added field
       birthday: parseString(data['birthday']), // Added field

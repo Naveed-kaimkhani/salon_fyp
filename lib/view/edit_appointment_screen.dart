@@ -145,6 +145,7 @@ class _EditAppointmentScreenState extends State<EditAppointmentScreen> {
                     isCancelled: false,
                     id: appointment.id,
                     date: selectedDate,
+                    address: "",
                     time: selectedTime,
                     stylist: specialistName,
                     specialistUid: appointment.specialistUid,

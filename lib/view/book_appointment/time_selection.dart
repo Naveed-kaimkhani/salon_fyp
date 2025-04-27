@@ -274,6 +274,7 @@ class _TimeSelectionState extends State<TimeSelection> {
                         time: controller.selectedTime.value,
                         stylist: widget.specialistName,
                         specialistUid: widget.specialistUid,
+                      
                         userUid: currentUser.uid,
                         duration: Get.find<TreatmentCardController>()
                             .selectedDuration

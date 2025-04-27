@@ -203,7 +203,7 @@ class UserHomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             LabelText(
-              text: 'our_specialist'.tr,
+              text: "All Salons",
               weight: FontWeight.w600,
               fontSize: AppFontSize.medium,
             ),
@@ -223,7 +223,7 @@ class UserHomeScreen extends StatelessWidget {
   }
 
   Widget _buildSpecialistList(List<StaffModel> staffList) {
-        final StaffController staffProvider = Get.find<StaffController>();
+    final StaffController staffProvider = Get.find<StaffController>();
 
     return Column(
       children: staffList.map((staff) {

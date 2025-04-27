@@ -65,7 +65,7 @@ class SpecialistCardComponent extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     LabelText(
-                      text: name,
+                      text: salonName,
                       weight: FontWeight.w600,
                       fontSize: AppFontSize.medium,
                     ),
@@ -98,7 +98,7 @@ class SpecialistCardComponent extends StatelessWidget {
                                   ),
                                   const Gap(5),
                                   LabelText(
-                                    text: salonName,
+                                    text: name,
                                     fontSize: AppFontSize.xxsmall,
                                     weight: FontWeight.w500,
                                   ),
