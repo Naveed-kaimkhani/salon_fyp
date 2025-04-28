@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class AllAppointmentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("staff uid $uid");
     return Scaffold(
       appBar: CustomAppBar(
         title: "all_appointments".tr,
@@ -29,7 +31,9 @@ class AllAppointmentsScreen extends StatelessWidget {
           // Date selection component
           SizedBox(
             height: 160,
-            child: DateSelection(isShowLabelText: false,),
+            child: DateSelection(
+              isShowLabelText: false,
+            ),
           ),
           Expanded(
             child: Obx(() {
@@ -58,7 +62,8 @@ class AllAppointmentsScreen extends StatelessWidget {
                   return AppointmentDetailsCard(
                     appointment: appointment,
                     switchController: switchController,
-                    onButtonTap: () => _navigateToAppointmentDetails(context, appointment),
+                    onButtonTap: () =>
+                        _navigateToAppointmentDetails(context, appointment),
                   );
                 },
               );
@@ -70,7 +75,8 @@ class AllAppointmentsScreen extends StatelessWidget {
             child: CustomGradientButton(
               text: "cancel_all_appointments".tr,
               isLoading: appointmentProvider.isLoading,
-              onTap: () => appointmentProvider.deleteAllAppointmentsForSpecificStaff(uid),
+              onTap: () => appointmentProvider
+                  .deleteAllAppointmentsForSpecificStaff(uid),
             ),
           ),
         ],
@@ -84,18 +90,24 @@ class AllAppointmentsScreen extends StatelessWidget {
 
     return appointmentProvider.appointmentsList.where((appointment) {
       final appointmentDate = appointment.date;
+      log("appointment id ${appointment.specialistUid}");
       final matchesSpecialist = appointment.specialistUid == uid;
       final matchesDate = selectedDate.isSameDate(appointmentDate);
       return matchesSpecialist && matchesDate && !appointment.isCancelled;
+
+      // return matchesSpecialist && !appointment.isCancelled;
     }).toList();
   }
 
   /// Navigates to the appointment details screen.
-  void _navigateToAppointmentDetails(BuildContext context, dynamic appointment) {
+  void _navigateToAppointmentDetails(
+      BuildContext context, dynamic appointment) {
+    log("in appointment detailssssss");
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AppointmentDetailsScreen(appointment: appointment),
+        builder: (context) =>
+            AppointmentDetailsScreen(appointment: appointment),
       ),
     );
   }

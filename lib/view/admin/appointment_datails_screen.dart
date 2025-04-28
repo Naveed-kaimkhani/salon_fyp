@@ -39,7 +39,8 @@ class AppointmentDetailsScreen extends StatelessWidget {
                 onTap: () async {
                   controller.isLoading.value = true;
                   // await controller.deleteAppointment(appointment);
-               await    controller.deleteAppointmentAndMoveToCancel(appointment);
+                  await controller
+                      .deleteAppointmentAndMoveToCancel(appointment);
                   controller.isLoading.value = false;
                   Get.snackbar('info'.tr, 'appointment_cancelled'.tr);
                   Get.back();
@@ -136,6 +137,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
     );
   }
 
+// fjlskjf
   Widget _buildDateTimeSection(Appointment appointment) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,6 +166,40 @@ class AppointmentDetailsScreen extends StatelessWidget {
                 label: 'time'.tr,
                 value: Utills.convertTo24Hour(appointment.time),
                 showDivider: false,
+              ),
+              Divider(
+                height: 2,
+                color: AppColors.lightGrey,
+              ),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: const Color.fromARGB(255, 218, 129, 233),
+                        ),
+                        const Gap(5),
+                        LabelText(
+                          text: "Location",
+                          fontSize: AppFontSize.small,
+                        ),
+                        const Spacer(),
+                        SizedBox(
+                          width: 170,
+                          child: LabelText(
+                            text: appointment.address,
+                            fontSize: AppFontSize.small,
+                            textColor: AppColors.mediumGrey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:hair_salon/models/appointments/appoinment.dart';
@@ -21,6 +23,8 @@ class AppointmentProvider extends GetxController {
           await _appointmentRepo.fetchAppointments(); // Fetch appointments
       appointmentsList.value =
           fetchedAppointments; // Update appointments list reactively
+      log("appaointemets listtt");
+      log(appointmentsList.length.toString());
       isLoading.value = false; // Hide loading once data is fetched
     } catch (e) {
     } finally {

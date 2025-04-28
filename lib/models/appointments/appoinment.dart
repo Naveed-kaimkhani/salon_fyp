@@ -10,6 +10,8 @@ class Appointment {
   final String duration;
   final double charges;
   final String appointmentFor;
+
+   String address;
   final bool isUpComing;
   static const bool isRemindMe = false;
   final bool isWaiting;
@@ -27,6 +29,7 @@ class Appointment {
     required this.charges,
     required this.time,
     required this.stylist,
+    this.address="",
     required this.specialistUid,
     required this.userUid,
     required this.duration,
@@ -51,6 +54,8 @@ class Appointment {
       'specialistName': stylist,
       'charges': charges,
       'specialistUid': specialistUid,
+
+      'address': address,
       'userUid': userUid,
       'duration': duration,
       'treatment': appointmentFor,
@@ -98,6 +103,8 @@ class Appointment {
       specialistUid: parseString(data['specialistUid']),
       userUid: parseString(data['userUid']),
       duration: parseString(data['duration']),
+
+      address: parseString(data['address']),
       isUpComing: data['isUpComing'] ?? false,
       isWaiting: data['isWaiting'] ?? false,
       isCancelled: data['isCancelled'] ?? false,
