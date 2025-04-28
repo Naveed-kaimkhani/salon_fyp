@@ -26,9 +26,6 @@ class _UserSplashScreenState extends State<UserSplashScreen> {
     Future.delayed(const Duration(seconds: 3), () async {
       // bool adminAuth = await isAdminAuthenticated;
       bool userAuth = await isUserAuthenticated;
-      // bool approved = await isApproved;
-      // log("Admin Authenticated: $adminAuth");
-      log("User Authenticated: $userAuth");
 
       if (userAuth) {
         Get.offAndToNamed(RouteName.userHomeScreen);

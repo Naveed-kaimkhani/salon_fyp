@@ -23,7 +23,6 @@ class AdminBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(FirebaseAuth.instance.currentUser!.uid.toString());
     return Scaffold(
       body: Obx(() => _screens[bottomNavController.selectedBottomNav.value]),
       bottomNavigationBar: Obx(

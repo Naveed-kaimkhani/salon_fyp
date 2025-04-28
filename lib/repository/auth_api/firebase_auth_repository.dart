@@ -152,11 +152,9 @@ class FirebaseAuthRepository implements AuthRepository {
             .get();
 
         if (existingUser.exists) {
-          log("User already exists, navigating to home screen.");
           await saveUserSession(user.uid, user.phoneNumber!);
           Get.offAllNamed(RouteName.userHomeScreen, arguments: phoneNumber);
         } else {
-          log("User does not exist, navigating to sign-up screen.");
           Get.toNamed(RouteName.userSignUpScreen, arguments: phoneNumber);
         }
       }
