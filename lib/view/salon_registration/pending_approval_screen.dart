@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +40,7 @@ class _PendingApprovalScreenState extends State<PendingApprovalScreen>
   }
 
   Future<void> _refreshStatus() async {
+    log(FirebaseAuth.instance.currentUser!.email.toString());
     setState(() => _isRefreshing = true);
 
     try {
@@ -197,22 +200,22 @@ class _PendingApprovalScreenState extends State<PendingApprovalScreen>
                 ),
                 SizedBox(height: size.height * 0.02),
 
-                // Contact Support Button
-                TextButton.icon(
-                  onPressed: () {
-                    // Add contact support functionality
-                    Get.snackbar(
-                      'Contact Support',
-                      'Our support team will assist you shortly',
-                      snackPosition: SnackPosition.BOTTOM,
-                    );
-                  },
-                  icon: const Icon(Icons.headset_mic_outlined),
-                  label: const Text('Contact Support'),
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.grey[700],
-                  ),
-                ),
+                // // Contact Support Button
+                // TextButton.icon(
+                //   onPressed: () {
+                //     // Add contact support functionality
+                //     Get.snackbar(
+                //       'Contact Support',
+                //       'Our support team will assist you shortly',
+                //       snackPosition: SnackPosition.BOTTOM,
+                //     );
+                //   },
+                //   icon: const Icon(Icons.headset_mic_outlined),
+                //   label: const Text('Contact Support'),
+                //   style: TextButton.styleFrom(
+                //     foregroundColor: Colors.grey[700],
+                //   ),
+                // ),
               ],
             ),
           ),

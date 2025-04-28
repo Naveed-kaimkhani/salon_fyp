@@ -5,7 +5,7 @@ class Salon {
   final String? businessName;
   final String? ownerName;
   final String? phoneNumber;
-  final String? email;
+  final String email;
   final String? businessAddress;
   final String? operatingHours;
   final String? businessLicenseUrl;

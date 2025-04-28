@@ -42,7 +42,7 @@ class ManageServiceProvider extends GetxController {
     final salonId = currentUser?.uid;
 
     if (salonId == null) {
-      Get.snackbar('error'.tr, 'Salon ID not found.');
+      // Get.snackbar('error'.tr, 'Salon ID not found.');
       return;
     }
 

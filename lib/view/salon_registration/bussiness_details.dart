@@ -22,15 +22,13 @@ class BussinessDetails extends StatefulWidget {
 class _BussinessDetailsState extends State<BussinessDetails> {
   late TextEditingController businessAdressController,
       operatingHoursController,
-
       confirmPasswordController;
 
   final FirebaseAuthRepository authService = FirebaseAuthRepository();
- final StaffServicesRepository _staffServices =
+  final StaffServicesRepository _staffServices =
       Get.find<StaffServicesRepository>();
   var isCreatingUser = false.obs;
   Salon salon = Get.arguments;
-
 
   Uint8List? businessLicenseImage;
   Uint8List? idProofImage;
@@ -64,88 +62,80 @@ class _BussinessDetailsState extends State<BussinessDetails> {
       });
     }
   }
-void _login() async{
-  
-      isCreatingUser = true.obs;
-   authService.signUpUser('nav@gmail.com',  '111111', context)
+
+  void _login() async {
+    isCreatingUser.value = true;
+    authService
+        .signUpUser(salon.email, salon.password ?? "", context)
         .then((User? user) async {
       if (user != null) {
-try {
+        try {
+          final String businessLicenseUrl =
+              await _staffServices.uploadSalonDocs(
+            imageFile: businessLicenseImage!,
+            uid: user.uid,
+            documentType: 'business_license',
+          );
 
-   final String businessLicenseUrl= await  _staffServices.uploadSalonDocs(
-          imageFile: businessLicenseImage!,
-          uid: user.uid,
-          documentType: 'business_license',
-        );
-        
+          final String idCardUrl = await _staffServices.uploadSalonDocs(
+            imageFile: idProofImage!,
+            uid: user.uid,
+            documentType: 'id_card',
+          );
+          await authService.createSalonProfile(
+            salon: Salon(
+              uid: user.uid,
+              businessName: salon.businessName,
+              ownerName: salon.ownerName,
+              phoneNumber: salon.phoneNumber,
+              email: salon.email,
+              businessAddress: businessAdressController.text,
+              operatingHours: operatingHoursController.text,
+              businessLicenseUrl: businessLicenseUrl, // Handle upload logic
+              idProofUrl: idCardUrl, // Handle upload logic
+              createdAt: DateTime.now(),
+            ),
+          );
 
-   final String idCardUrl= await  _staffServices.uploadSalonDocs(
-          imageFile: businessLicenseImage!,
-          uid: user.uid,
-          documentType: 'id_card',
-        );
-      await authService.createSalonProfile(
-        
-        salon: Salon(
-          uid: user.uid,
-          businessName:salon.businessName,
-          ownerName: salon.ownerName,
-          phoneNumber: salon.phoneNumber,
-          email: salon.email,
-          businessAddress: businessAdressController.text,
-          operatingHours: operatingHoursController.text,
-          businessLicenseUrl: businessLicenseUrl, // Handle upload logic
-          idProofUrl: idCardUrl, // Handle upload logic
-          createdAt: DateTime.now(),
-        ),
-      );
-      
-        isCreatingUser = false.obs;
-      Get.offAllNamed(RouteName.pendingApprovalScreen);
-    } catch (error) {
-      
-      isCreatingUser = false.obs;
-      Get.snackbar('Error', 'Failed to sign up: ${error.toString()}');
-    } finally {
-      
-        isCreatingUser = false.obs;
-    }
+          isCreatingUser.value = false;
+          Get.offAllNamed(RouteName.pendingApprovalScreen);
+        } catch (error) {
+          isCreatingUser.value = false;
+          Get.snackbar('Error', 'Failed to sign up: ${error.toString()}');
+        } finally {
+          isCreatingUser.value = false;
+        }
       } else {
-   
-      isCreatingUser = false.obs;
+        isCreatingUser.value = false;
       }
     });
   }
+
   void validateAndSignUp() async {
     if (businessAdressController.text.isEmpty) {
-      
-      isCreatingUser = false.obs;
+      isCreatingUser.value = false;
       Get.snackbar('Error', 'Business Address cannot be empty');
-      
+
       return;
     }
     if (operatingHoursController.text.isEmpty) {
-      
-      isCreatingUser = false.obs;
+      isCreatingUser.value = false;
       Get.snackbar('Error', 'Operating Hours cannot be empty');
-    
+
       return;
     }
     if (businessLicenseImage == null) {
-      
-      isCreatingUser = false.obs;
+      isCreatingUser.value = false;
       Get.snackbar('Error', 'Please upload Business License');
-    
+
       return;
     }
     if (idProofImage == null) {
-    
-      isCreatingUser = false.obs;
+      isCreatingUser.value = false;
       Get.snackbar('Error', 'Please upload ID Proof');
-    
+
       return;
     }
-
 
     _login();
   }

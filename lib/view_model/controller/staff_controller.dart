@@ -105,8 +105,7 @@ class StaffController extends GetxController {
       final salonId = await currentUser?.uid;
 
       if (salonId == null) {
-        
-      Get.offAllNamed(RouteName.loginSalon);
+        Get.offAllNamed(RouteName.loginSalon);
         throw Exception("No user logged in");
       }
 
@@ -114,11 +113,12 @@ class StaffController extends GetxController {
       final fetchedStaffList = await staffServices.fetchStaffList();
       log(fetchedStaffList.toString());
       log(fetchedStaffList.length.toString());
-      
+
       final filteredStaffList =
           fetchedStaffList.where((staff) => staff.salonId == salonId).toList();
-   
+
       staffList.value = filteredStaffList;
+      log(staffList.length.toString());
     } catch (e) {
       // Get.snackbar(
       //   'error'.tr,
@@ -145,7 +145,6 @@ class StaffController extends GetxController {
       startTime: startTimeValue,
       endTime: endTimeValue,
       photoURL: photo.value,
-     
       listOfServices: assignedServices,
     );
 
