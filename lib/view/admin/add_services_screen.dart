@@ -288,7 +288,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                   const Gap(10),
                   CustomTextField(
                     label: "price".tr,
-                    hint: "\$50",
+                    hint: "\50 pkr",
                     controller: priceController,
                   ),
                   const Gap(20),

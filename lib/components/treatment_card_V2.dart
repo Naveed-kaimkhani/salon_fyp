@@ -40,7 +40,7 @@ class TreatmentCardV2 extends StatelessWidget {
     final TreatmentCardControllerV2 controller =
         Get.put(TreatmentCardControllerV2());
     final servicesController = Get.find<ManageServiceProvider>();
-    log("$duration:$duration");
+    // log("$duration:$duration");
     return Obx(() {
       return Container(
         margin: const EdgeInsets.only(bottom: 8),
@@ -92,7 +92,7 @@ class TreatmentCardV2 extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         LabelText(
-                          text: " $price",
+                          text: " $price pkr",
                           fontSize: AppFontSize.medium,
                           weight: FontWeight.w600,
                           textColor: AppColors.purple,
