@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hair_salon/models/staff/staff_model.dart';
 import 'package:hair_salon/repository/manage_staff_api/manage_staff_repo.dart';
+import 'package:hair_salon/view/salon_registration/salon_login.dart';
 
 class StaffController extends GetxController {
   //add a constructor to inject the repository
@@ -104,17 +105,18 @@ class StaffController extends GetxController {
       final salonId = await currentUser?.uid;
 
       if (salonId == null) {
-        throw Exception("No user logged in");
+        // throw Exception("No user logged in");
+        // Get.to(() => LoginSalon());
       }
 
       // Fetch all staff members
       final fetchedStaffList = await staffServices.fetchStaffList();
       log(fetchedStaffList.toString());
       log(fetchedStaffList.length.toString());
-      
+
       final filteredStaffList =
           fetchedStaffList.where((staff) => staff.salonId == salonId).toList();
-   
+
       staffList.value = filteredStaffList;
     } catch (e) {
       Get.snackbar(
@@ -142,7 +144,6 @@ class StaffController extends GetxController {
       startTime: startTimeValue,
       endTime: endTimeValue,
       photoURL: photo.value,
-     
       listOfServices: assignedServices,
     );
 

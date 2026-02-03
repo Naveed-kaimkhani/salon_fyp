@@ -4,10 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:hair_salon/components/components.dart';
 import 'package:hair_salon/constants/constants.dart';
-import 'package:hair_salon/models/salon/salon_model.dart';
-import 'package:hair_salon/repository/auth_api/auth_api.dart';
 import 'package:hair_salon/repository/auth_api/firebase_auth_repository.dart';
-import 'package:hair_salon/utils/utills.dart';
 import 'package:hair_salon/view/salon_registration/pending_approval_screen.dart';
 
 class LoginSalon extends StatefulWidget {
