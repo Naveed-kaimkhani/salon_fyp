@@ -67,7 +67,7 @@ class _BussinessDetailsState extends State<BussinessDetails> {
 void _login() async{
   
       isCreatingUser = true.obs;
-   authService.signUpUser('nav@gmail.com',  '111111', context)
+   authService.signUpUser(salon.email!,  salon.password!, context)
         .then((User? user) async {
       if (user != null) {
 try {
